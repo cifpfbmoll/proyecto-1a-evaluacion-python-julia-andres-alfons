@@ -51,4 +51,16 @@ def imprimirTablero():
 
 imprimirTablero()
 
-#def posBarco(str: a, str: b, int: a):
+def posBarco(casilla, tamano):
+    if casilla[0] == casilla[3]:
+        var = int(casilla[0]) - int(casilla[3]) 
+        var = abs(var) + 1
+        if var == tamano:
+            return True
+        else:
+            return False
+    elif casilla[1] == casilla[4]:
+        print("NO FUNCTION")
+        #FALTA EL DICCIONARIO PARA LAS LETRAS Y SUS VALORES NUMERICOS
+    else:
+        return False
