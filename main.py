@@ -10,7 +10,7 @@ def instrucciones():
     print("- 3 barcos de 2 posiciones.")
     print("- 4 barcos de 1 posicion.")
     print("La colocacion de los barcos debe ser respetando la franja de las posiciones, es decir, nunca se puede colocar un barco al lado de otro, este debe estar almenos a mas de una posicion de cualquier otro barco del tablero.")
-    print("Para colocar cada barco se dira la posicion inicial y la final de este, por ejemplo, si es un barco de 3 casilla: B3 B5, asi este sera colocado en B3, B4 i B5. Si se tr")
+    print("Para colocar cada barco se dira la posicion inicial y la final de este, por ejemplo, si es un barco de 3 casillas: B3 B5, asi este sera colocado en B3, B4 i B5. Si se tr")
 
 instrucciones()
 
