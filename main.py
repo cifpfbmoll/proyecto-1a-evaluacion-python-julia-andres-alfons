@@ -35,6 +35,7 @@ def imprimirTablero():
 
 imprimirTablero()
 
+#ASUMIMOS QUE LA ENTRADA DEL USUARIO VA ASER SIEMPRE ALGO COMO ESTO: "B3 B7", "A5 A1"
 def posBarco(casilla, tamano):
     if casilla[0] == casilla[3]:
         var = int(casilla[0]) - int(casilla[3]) 
