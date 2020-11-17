@@ -1,6 +1,8 @@
 #encoding: "UTF-16"
 
+#INSTRUCCIONES
 def instrucciones():
+    #Explicar como funciona el juego
     print("\n------Como se juega a este juego------\n")
     print("El juego consiste en undir todos los barcos del contrincante.")
     print("Para ello, debe colocar su propia flota estrategicamente, encontrar y undir la flota contraria.")
@@ -10,7 +12,10 @@ def instrucciones():
     print("- 3 barcos de 2 posiciones.")
     print("- 4 barcos de 1 posicion.")
     print("La colocacion de los barcos debe ser respetando la franja de las posiciones, es decir, nunca se puede colocar un barco al lado de otro, este debe estar almenos a mas de una posicion de cualquier otro barco del tablero.")
-    print("Para colocar cada barco se dira la posicion inicial y la final de este, por ejemplo, si es un barco de 3 casillas: B3 B5, asi este sera colocado en B3, B4 i B5. Si se tr")
+    print("Para colocar cada barco se dira la posicion inicial y la final de este, por ejemplo, si es un barco de 3 casillas: B3 B5, asi este sera colocado en B3, B4 i B5. Si solo es el barco de una casilla solo se introducira una coordenada")
+    print("Para disparar a otro jugador se debera insertar una coordenada no repedia anterior y si se golpea a un barco sera 'tocado', si se falla sera 'agua', para que un barco se hunda debe golpearse en todas sus casillas.")
+    print("Para ganar se debe hundir todos los barcos del contrincante. Si se hunden todos tus barcos has perdido.")
+    
 
 instrucciones()
 
@@ -88,3 +93,5 @@ def posBarco(casilla, tamano):
         #FALTA EL DICCIONARIO PARA LAS LETRAS Y SUS VALORES NUMERICOS
     else:
         return False
+
+
