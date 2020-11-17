@@ -35,7 +35,6 @@ def imprimirTablero():
 
 imprimirTablero()
 
-<<<<<<< HEAD
 lista = [[j for j in range(0,10)] for i in range(0,10)]
 print('esta es la lista origianl',lista)
 
@@ -59,7 +58,6 @@ def colocarBarco(lista_barcos, casilla):
 
 colocarBarco(lista,'A3' )
 print('esta es la lista con un barco en la casilla A3',lista)
-=======
 #ASUMIMOS QUE LA ENTRADA DEL USUARIO VA ASER SIEMPRE ALGO COMO ESTO: "B3 B7", "A5 A1"
 def posBarco(casilla, tamano):
     if casilla[0] == casilla[3]:
@@ -74,4 +72,3 @@ def posBarco(casilla, tamano):
         #FALTA EL DICCIONARIO PARA LAS LETRAS Y SUS VALORES NUMERICOS
     else:
         return False
->>>>>>> d45023b3f1c538b5b2c3666623179a31a658ff6e
