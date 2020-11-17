@@ -30,3 +30,5 @@ def imprimirTablero():
         print(end = "\n")
 
 imprimirTablero()
+
+print('cambio')
