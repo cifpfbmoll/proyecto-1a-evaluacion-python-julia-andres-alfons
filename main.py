@@ -1,3 +1,7 @@
+def instrucciones():
+    print("------Como se juega a este juego------")
+
+
 def juego():
     seguir = True
     while seguir:
@@ -6,7 +10,7 @@ def juego():
         if ent == "1":
             print ("OPCION1")
         elif ent == "2":
-            print ("OPCION2")
+            instrucciones()
         elif ent == "3":
             print ("Adios")
             seguir = False
