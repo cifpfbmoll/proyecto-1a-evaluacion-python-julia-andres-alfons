@@ -30,3 +30,5 @@ def imprimirTablero():
         print(end = "\n")
 
 imprimirTablero()
+
+def posBarco(str: a, str: b, int: a):
