@@ -18,7 +18,7 @@ def instrucciones():
     juego()
 
 
-instrucciones()
+#instrucciones()
 
 
 
@@ -78,7 +78,8 @@ def colocarBarco(lista_barcos, casilla):
     lista[int(equivalencias[letra_inicio])][numero_inicio-1] = 'X'
 
 
-colocarBarco(lista,'A3' )
+colocarBarco(lista,'A4' )
+
 print('esta es la lista con un barco en la casilla A3',lista)
 #ASUMIMOS QUE LA ENTRADA DEL USUARIO VA ASER SIEMPRE ALGO COMO ESTO: "B3 B7", "A5 A1"
 def posBarco(casilla, tamano):
@@ -96,3 +97,10 @@ def posBarco(casilla, tamano):
         return False
 
 
+#
+def posCorrecta(barcosTablero, casilla):
+    if casilla[0] 
+
+
+
+posCorrecta(barcosTablero, "A4 A6")
