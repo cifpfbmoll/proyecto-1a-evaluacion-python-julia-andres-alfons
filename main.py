@@ -59,10 +59,9 @@ def imprimirTablero(lista):
 # print('esta es la lista con un barco en la casilla A3',lista)
 # imprimirTablero(lista)
 
+listaPosBarco = []
 #ASUMIMOS QUE LA ENTRADA DEL USUARIO VA A SER SIEMPRE ALGO COMO ESTO: "B3 B7", "A5 A1"
 #COMPRUEBA SI EL BARCO TIENE UNA ORIENTACION Y TAMAÑO CORRECTOS. DESPUES METE TODAS LAS COORDENADAS QUE OCUPA EL BARCO EN listaPosBarco
-
-listaPosBarco = []
 
 def posBarco(casilla, tamano):
     if casilla[1] == casilla[4]: #SI LOS NUMEROS SON IGUALES EL BARCO ESTA EN VERTICAL Y CONTAMOS LETRAS
@@ -95,6 +94,21 @@ def posBarco(casilla, tamano):
             return True
     else:
         return False
+
+#USAMOS listaBarco DONDE SE HA ALMACENADO TODAS LAS COORDENADAS QUE OCUPARÁ EL BARCO Y VAMOS MIRANDO UNA POR UNA SI ALREDEDOR O EN ESA MISMA COORDENADA
+#SI ESTÁ OCUPADA, SI LO ESTA LA FUNCION DEVUELVE FALSO, SI NO ENCUENTRA NADA DEVUELVE VERDADERO
+
+def comprobarCasillas():
+    for i in range(len(listaPosBarco)):
+        varj = int(equivalencias.get(listaPosBarco[i][0]))-1
+        vark = int(listaPosBarco[i][1])-1
+        for j in range(3):
+            for k in range(3):
+                if (varj+(j-1)) >= 0 and (vark+(k-1)) >= 0: #TENEMOS EN CUENTA QUE SI UNA DE LAS COORDENADAS TOCA UNA PARED NO MIRAREMOS FUERA DEL RANGO DE LA MATRIZ
+                    if lista[varj+(j-1)][vark+(k-1)] == "<O>":  #SUPONGAMOS <O> SIMBOLO DE BARCO
+                        return False
+    return True
+            
 
 def juego():
     seguir = True
