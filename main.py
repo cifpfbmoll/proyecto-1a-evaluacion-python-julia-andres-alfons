@@ -59,19 +59,39 @@ def imprimirTablero(lista):
 # print('esta es la lista con un barco en la casilla A3',lista)
 # imprimirTablero(lista)
 
-#ASUMIMOS QUE LA ENTRADA DEL USUARIO VA ASER SIEMPRE ALGO COMO ESTO: "B3 B7", "A5 A1"
+#ASUMIMOS QUE LA ENTRADA DEL USUARIO VA A SER SIEMPRE ALGO COMO ESTO: "B3 B7", "A5 A1"
+#COMPRUEBA SI EL BARCO TIENE UNA ORIENTACION Y TAMAÑO CORRECTOS. DESPUES METE TODAS LAS COORDENADAS QUE OCUPA EL BARCO EN listaPosBarco
+
+listaPosBarco = []
+
 def posBarco(casilla, tamano):
-    if casilla[1] == casilla[4]:
-        var = int(equivalencias.get(casilla[0])) - int(equivalencias.get(casilla[3])) 
-        var = abs(var) + 1
+    if casilla[1] == casilla[4]: #SI LOS NUMEROS SON IGUALES EL BARCO ESTA EN VERTICAL Y CONTAMOS LETRAS
+        orientacion = int(equivalencias.get(casilla[0])) - int(equivalencias.get(casilla[3])) 
+        var = abs(orientacion) + 1
         if var == tamano:
+            if orientacion < 0:
+                for i in range(tamano):
+                    aux = str(int(equivalencias.get(casilla[1]))+i) + str(casilla[4])
+                    listaPosBarco.append(aux)
+            else:
+                for i in range(tamano):
+                    aux = str(int(equivalencias.get(casilla[1]))+i) + str(casilla[4])
+                    listaPosBarco.append(aux)
             return True
         else:
             return False
-    elif casilla[0] == casilla[3]:
-        var = int(casilla[1]) - int(casilla[4])
-        var = abs(var) + 1
+    elif casilla[0] == casilla[3]: #SI LAS LETRAS SON IGUALES EL BARCO ESTA EN HORIZONTAL Y CONTAMOS NUMEROS
+        orientacion = int(casilla[1]) - int(casilla[4])
+        var = abs(orientacion) + 1
         if var == tamano:
+            if orientacion < 0:
+                for i in range(tamano):
+                    aux = str(casilla[0]) + str(int(casilla[1])+i)
+                    listaPosBarco.append(aux)
+            else:
+                for i in range(tamano):
+                    aux = str(casilla[0]) + str(int(casilla[1])-i)
+                    listaPosBarco.append(aux)
             return True
     else:
         return False
