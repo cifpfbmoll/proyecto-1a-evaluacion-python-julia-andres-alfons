@@ -62,15 +62,17 @@ def imprimirTablero(lista):
 #ASUMIMOS QUE LA ENTRADA DEL USUARIO VA ASER SIEMPRE ALGO COMO ESTO: "B3 B7", "A5 A1"
 def posBarco(casilla, tamano):
     if casilla[0] == casilla[3]:
-        var = int(casilla[0]) - int(casilla[3]) 
+        var = int(equivalencias.get(casilla[1])) - int(equivalencias.get(casilla[4])) 
         var = abs(var) + 1
         if var == tamano:
             return True
         else:
             return False
     elif casilla[1] == casilla[4]:
-        print("NO FUNCTION")
-        #FALTA EL DICCIONARIO PARA LAS LETRAS Y SUS VALORES NUMERICOS
+        var = int(casilla[0]) - int(casilla[3])
+        var = abs(var) + 1
+        if var == tamano:
+            return True
     else:
         return False
 
