@@ -36,16 +36,16 @@ def colocarBarco(lista_barcos, casilla):
     lista_barcos[int(equivalencias[letra_inicio])][numero_inicio-1] = 'X'
     
 
-def imprimirTablero(lista_barcos, *lista_disparos):
+def imprimirTablero(jugadores, jugador_actual, *jugador_rival):
     letras = ('A |', 'B |', 'C |', 'D |', 'E |', 'F |', 'G |', 'H |', 'I |', 'J |')
     print('     1  2  3  4  5  6  7  8  9 10')
     print('---------------------------------')
 
-    for fila in range(len(lista_barcos)):
+    for fila in range(len(jugadores[jugador_actual]['barcos'])):
         print(letras[fila], end=" ")
-        for columna in range(len(lista_barcos[fila])):
+        for columna in range(len(jugadores[jugador_actual]['barcos'][fila])):
             # print(columna)
-            if lista_barcos[fila][columna] == 'X':
+            if jugadores[jugador_actual]['barcos'][fila][columna] == 'X':
                 print('XX', end = " ")
             else: 
                 print('--', end = " ")
@@ -59,11 +59,11 @@ def imprimirTablero(lista_barcos, *lista_disparos):
 # print('esta es la lista con un barco en la casilla A3',lista)
 # imprimirTablero(lista)
 
-listaPosBarco = []
+
 #ASUMIMOS QUE LA ENTRADA DEL USUARIO VA A SER SIEMPRE ALGO COMO ESTO: "B3 B7", "A5 A1"
 #COMPRUEBA SI EL BARCO TIENE UNA ORIENTACION Y TAMAÑO CORRECTOS. DESPUES METE TODAS LAS COORDENADAS QUE OCUPA EL BARCO EN listaPosBarco
 
-def posBarco(casilla, tamano):
+def posBarco(casilla, tamano, listaPosBarco):
     if tamano > 1:
         if casilla[1] == casilla[4]: #SI LOS NUMEROS SON IGUALES EL BARCO ESTA EN VERTICAL Y CONTAMOS LETRAS
             orientacion = int(equivalencias[casilla[0]]) - int(equivalencias[casilla[3]]) 
@@ -102,17 +102,17 @@ def posBarco(casilla, tamano):
     #USAMOS listaBarco DONDE SE HA ALMACENADO TODAS LAS COORDENADAS QUE OCUPARÁ EL BARCO Y VAMOS MIRANDO UNA POR UNA SI ALREDEDOR O EN ESA MISMA COORDENADA
     #SI ESTÁ OCUPADA, SI LO ESTA LA FUNCION DEVUELVE FALSO, SI NO ENCUENTRA NADA DEVUELVE VERDADERO
 
-    def comprobarCasillas(listaJugador):
-        for i in range(len(listaPosBarco)):
-            varj = int(equivalencias[listaPosBarco[i][0]])
-            vark = int(listaPosBarco[i][1])-1
-            for j in range(3):
-                for k in range(3):
-                    if ((varj+(j-1)) >= 0 and (vark+(k-1)) >= 0) or ((varj+(j-1)) <= 10 and (vark+(k-1)) <= 10): #TENEMOS EN CUENTA QUE SI UNA DE LAS COORDENADAS TOCA UNA PARED NO MIRAREMOS FUERA DEL RANGO DE LA MATRIZ
-                        if listaJugador[varj+(j-1)][vark+(k-1)] == "<O>":  #SUPONGAMOS <O> SIMBOLO DE BARCO
-                            return False
-        return True
-            
+def comprobarCasillas(listaJugador, listaPosBarco):
+    for i in range(len(listaPosBarco)):
+        varj = int(equivalencias[listaPosBarco[i][0]])
+        vark = int(listaPosBarco[i][1])-1
+        for j in range(3):
+            for k in range(3):
+                if ((varj+(j-1)) >= 0 and (vark+(k-1)) >= 0) or ((varj+(j-1)) <= 10 and (vark+(k-1)) <= 10): #TENEMOS EN CUENTA QUE SI UNA DE LAS COORDENADAS TOCA UNA PARED NO MIRAREMOS FUERA DEL RANGO DE LA MATRIZ
+                    if listaJugador[varj+(j-1)][vark+(k-1)] == "<O>":  #SUPONGAMOS <O> SIMBOLO DE BARCO
+                        return False
+    return True
+        
 
 def juego():
     seguir = True
@@ -131,7 +131,7 @@ def juego():
             # Le preguinto a cada  jugador donde quiere colocar los barcos
             for jugador in jugadores:
                 #Tengo que saber cuantos barcos hay de cada . Pongo dos de momento para probar          
-                lista_barcos = (4,3,3,2,2,2,1,1,1,1)
+                lista_barcos = (4,2)
                 print('Hola', jugador['nombre'])
                 # creo el tablero del jugador
                 tablero = [[j for j in range(0,10)] for i in range(0,10)]
@@ -141,13 +141,17 @@ def juego():
             
 
                 for barco in lista_barcos:
-                    imprimirTablero(jugador['barcos'])
+                    imprimirTablero(jugadores,0) ## Esto hay qye arregrarlo
                     coordenadas_barco = input(f'Escribe donde quieres colocar tu barco de {barco} casillas. Indicando la casilla de inicio y la de fin. Por ejemplo para el barco de 4: A1 A4: ')
                     #  AQUI VAN lAS COMPROBACIONES Y ME DEVUELVEN UNA LISTA DE CASILLAS
-                    lista_casillas = ['A1', 'A2', 'A3', 'A4']
+                    listaPosBarco = []
+                    comprobacion1 = posBarco(coordenadas_barco, barco, listaPosBarco)
+                    comprobacion2 = comprobarCasillas(jugador['barcos'], listaPosBarco)
+                    if comprobacion1 and comprobacion2:
+                        # lista_casillas = ['A1', 'A2', 'A3', 'A4']
                     # SI todo es correcto
-                    for casilla in lista_casillas:
-                        colocarBarco(jugador['barcos'], casilla)
+                        for casilla in listaPosBarco:
+                            colocarBarco(jugador['barcos'], casilla)
             
             ganador = False
             while ganador == False:
@@ -156,6 +160,8 @@ def juego():
                 ##MUestro tus barcos
                 print('estos Son tus barcos')
                 imprimirTablero(jugador['barcos'], jugadores[1]['disparos'])
+
+                #Muestro los disparos
                 print('Estos son tus disparos')
                 imprimirTablero(jugadores[1]['barcos'], jugador['disparos'])
                 input('pulsa una tecla para continuar')
@@ -164,6 +170,8 @@ def juego():
                 print('hola', jugador['nombre'])
                 print('estos Son tus barcos')
                 imprimirTablero(jugador['barcos'], jugadores[0]['disparos'])
+
+                #Muestro los disparos
                 print('Estos son tus disparos')
                 imprimirTablero(jugadores[0]['barcos'], jugador['disparos'])
                 input('pulsa una tecla para continuar')
