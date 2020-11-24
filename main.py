@@ -152,13 +152,3 @@ def juego():
             print ("Vuelve a Introducir")
 
 juego()
-
-
-
-#
-def posCorrecta(barcosTablero, casilla):
-    if casilla[0] 
-
-
-
-posCorrecta(barcosTablero, "A4 A6")
