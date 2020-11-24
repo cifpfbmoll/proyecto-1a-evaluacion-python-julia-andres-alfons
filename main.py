@@ -64,50 +64,54 @@ listaPosBarco = []
 #COMPRUEBA SI EL BARCO TIENE UNA ORIENTACION Y TAMAÑO CORRECTOS. DESPUES METE TODAS LAS COORDENADAS QUE OCUPA EL BARCO EN listaPosBarco
 
 def posBarco(casilla, tamano):
-    if casilla[1] == casilla[4]: #SI LOS NUMEROS SON IGUALES EL BARCO ESTA EN VERTICAL Y CONTAMOS LETRAS
-        orientacion = int(equivalencias.get(casilla[0])) - int(equivalencias.get(casilla[3])) 
-        var = abs(orientacion) + 1
-        if var == tamano:
-            if orientacion < 0:
-                for i in range(tamano):
-                    aux = str(int(equivalencias.get(casilla[1]))+i) + str(casilla[4])
-                    listaPosBarco.append(aux)
+    if tamano > 1:
+        if casilla[1] == casilla[4]: #SI LOS NUMEROS SON IGUALES EL BARCO ESTA EN VERTICAL Y CONTAMOS LETRAS
+            orientacion = int(equivalencias[casilla[0]]) - int(equivalencias[casilla[3]]) 
+            var = abs(orientacion) + 1
+            if var == tamano:
+                if orientacion < 0:
+                    for i in range(tamano):
+                        aux = str(int(equivalencias[casilla[1]])+i) + str(casilla[4])
+                        listaPosBarco.append(aux)
+                else:
+                    for i in range(tamano):
+                        aux = str(int(equivalencias[casilla[1]])+i) + str(casilla[4])
+                        listaPosBarco.append(aux)
+                return True
             else:
-                for i in range(tamano):
-                    aux = str(int(equivalencias.get(casilla[1]))+i) + str(casilla[4])
-                    listaPosBarco.append(aux)
-            return True
+                return False
+        elif casilla[0] == casilla[3]: #SI LAS LETRAS SON IGUALES EL BARCO ESTA EN HORIZONTAL Y CONTAMOS NUMEROS
+            orientacion = int(casilla[1]) - int(casilla[4])
+            var = abs(orientacion) + 1
+            if var == tamano:
+                if orientacion < 0:
+                    for i in range(tamano):
+                        aux = str(casilla[0]) + str(int(casilla[1])+i)
+                        listaPosBarco.append(aux)
+                else:
+                    for i in range(tamano):
+                        aux = str(casilla[0]) + str(int(casilla[1])-i)
+                        listaPosBarco.append(aux)
+                return True
         else:
             return False
-    elif casilla[0] == casilla[3]: #SI LAS LETRAS SON IGUALES EL BARCO ESTA EN HORIZONTAL Y CONTAMOS NUMEROS
-        orientacion = int(casilla[1]) - int(casilla[4])
-        var = abs(orientacion) + 1
-        if var == tamano:
-            if orientacion < 0:
-                for i in range(tamano):
-                    aux = str(casilla[0]) + str(int(casilla[1])+i)
-                    listaPosBarco.append(aux)
-            else:
-                for i in range(tamano):
-                    aux = str(casilla[0]) + str(int(casilla[1])-i)
-                    listaPosBarco.append(aux)
-            return True
     else:
-        return False
+        listaPosBarco.append(casilla)
+        return True
 
-#USAMOS listaBarco DONDE SE HA ALMACENADO TODAS LAS COORDENADAS QUE OCUPARÁ EL BARCO Y VAMOS MIRANDO UNA POR UNA SI ALREDEDOR O EN ESA MISMA COORDENADA
-#SI ESTÁ OCUPADA, SI LO ESTA LA FUNCION DEVUELVE FALSO, SI NO ENCUENTRA NADA DEVUELVE VERDADERO
+    #USAMOS listaBarco DONDE SE HA ALMACENADO TODAS LAS COORDENADAS QUE OCUPARÁ EL BARCO Y VAMOS MIRANDO UNA POR UNA SI ALREDEDOR O EN ESA MISMA COORDENADA
+    #SI ESTÁ OCUPADA, SI LO ESTA LA FUNCION DEVUELVE FALSO, SI NO ENCUENTRA NADA DEVUELVE VERDADERO
 
-def comprobarCasillas():
-    for i in range(len(listaPosBarco)):
-        varj = int(equivalencias.get(listaPosBarco[i][0]))-1
-        vark = int(listaPosBarco[i][1])-1
-        for j in range(3):
-            for k in range(3):
-                if (varj+(j-1)) >= 0 and (vark+(k-1)) >= 0: #TENEMOS EN CUENTA QUE SI UNA DE LAS COORDENADAS TOCA UNA PARED NO MIRAREMOS FUERA DEL RANGO DE LA MATRIZ
-                    if lista[varj+(j-1)][vark+(k-1)] == "<O>":  #SUPONGAMOS <O> SIMBOLO DE BARCO
-                        return False
-    return True
+    def comprobarCasillas(listaJugador):
+        for i in range(len(listaPosBarco)):
+            varj = int(equivalencias[listaPosBarco[i][0]])
+            vark = int(listaPosBarco[i][1])-1
+            for j in range(3):
+                for k in range(3):
+                    if ((varj+(j-1)) >= 0 and (vark+(k-1)) >= 0) or ((varj+(j-1)) <= 10 and (vark+(k-1)) <= 10): #TENEMOS EN CUENTA QUE SI UNA DE LAS COORDENADAS TOCA UNA PARED NO MIRAREMOS FUERA DEL RANGO DE LA MATRIZ
+                        if listaJugador[varj+(j-1)][vark+(k-1)] == "<O>":  #SUPONGAMOS <O> SIMBOLO DE BARCO
+                            return False
+        return True
             
 
 def juego():
