@@ -36,16 +36,16 @@ def colocarBarco(lista_barcos, casilla):
     lista_barcos[int(equivalencias[letra_inicio])][numero_inicio-1] = 'X'
     
 
-def imprimirTablero(lista):
+def imprimirTablero(lista_barcos, *lista_disparos):
     letras = ('A |', 'B |', 'C |', 'D |', 'E |', 'F |', 'G |', 'H |', 'I |', 'J |')
     print('     1  2  3  4  5  6  7  8  9 10')
     print('---------------------------------')
 
-    for fila in range(len(lista)):
+    for fila in range(len(lista_barcos)):
         print(letras[fila], end=" ")
-        for columna in range(len(lista[fila])):
+        for columna in range(len(lista_barcos[fila])):
             # print(columna)
-            if lista[fila][columna] == 'X':
+            if lista_barcos[fila][columna] == 'X':
                 print('XX', end = " ")
             else: 
                 print('--', end = " ")
@@ -127,12 +127,14 @@ def juego():
             # Le preguinto a cada  jugador donde quiere colocar los barcos
             for jugador in jugadores:
                 #Tengo que saber cuantos barcos hay de cada . Pongo dos de momento para probar          
-                lista_barcos = (4,3)
+                lista_barcos = (4,3,3,2,2,2,1,1,1,1)
                 print('Hola', jugador['nombre'])
                 # creo el tablero del jugador
                 tablero = [[j for j in range(0,10)] for i in range(0,10)]
                 # guardo el tablero en el diccionario de ese jugador
                 jugador['barcos'] = tablero
+                jugador['disparos'] = tablero
+            
 
                 for barco in lista_barcos:
                     imprimirTablero(jugador['barcos'])
@@ -143,6 +145,28 @@ def juego():
                     for casilla in lista_casillas:
                         colocarBarco(jugador['barcos'], casilla)
             
+            ganador = False
+            while ganador == False:
+                jugador = jugadores[0]
+                print('hola', jugador['nombre'])
+                ##MUestro tus barcos
+                print('estos Son tus barcos')
+                imprimirTablero(jugador['barcos'], jugadores[1]['disparos'])
+                print('Estos son tus disparos')
+                imprimirTablero(jugadores[1]['barcos'], jugador['disparos'])
+                input('pulsa una tecla para continuar')
+
+                jugador = jugadores[1]
+                print('hola', jugador['nombre'])
+                print('estos Son tus barcos')
+                imprimirTablero(jugador['barcos'], jugadores[0]['disparos'])
+                print('Estos son tus disparos')
+                imprimirTablero(jugadores[0]['barcos'], jugador['disparos'])
+                input('pulsa una tecla para continuar')
+
+            ##Empezamos a disparar
+            
+
         elif entrada == "2":
             instrucciones()
         elif entrada == "3":
