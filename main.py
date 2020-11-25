@@ -66,7 +66,7 @@ equivalencias = {
 }
 
 def colocarBarco(lista_barcos, casilla):
-    letra_inicio, numero_inicio = casilla[0], int(casilla[1])
+    letra_inicio, numero_inicio = casilla[0], int(casilla[1:])
     lista_barcos[int(equivalencias[letra_inicio])][numero_inicio-1] = 'X'
     
 
@@ -189,12 +189,13 @@ def juego():
 
             # inicializo una lista de 2 diccionarios con la info de cada jugador
             tablero = [[j for j in range(0,10)] for i in range(0,10)]
+
             jugadores = [{'nombre': jugador1,
-                        'barcos':tablero[:],
-                        'disparos':tablero[:]},
+                        'barcos':[[j for j in range(0,10)] for i in range(0,10)],
+                        'disparos':[[j for j in range(0,10)] for i in range(0,10)]},
                         {'nombre': jugador2,
-                        'barcos':tablero[:],
-                        'disparos':tablero[:]}]
+                        'barcos':[[j for j in range(0,10)] for i in range(0,10)],
+                        'disparos':[[j for j in range(0,10)] for i in range(0,10)]}]
 
 
             # Le preguinto a cada  jugador donde quiere colocar los barcos
@@ -204,7 +205,7 @@ def juego():
                 lista_barcos = (4,2)
                 print('Hola', jugador['nombre'])
                 # creo el tablero del jugador
-                # print(jugadores)
+                print(jugadores)
                 for barco in lista_barcos:
                     coordenadas_barco = input(f'Escribe donde quieres colocar tu barco de {barco} casillas. Indicando la casilla de inicio y la de fin. Por ejemplo para el barco de 4: A1 A4: ')
                     #  AQUI VAN lAS COMPROBACIONES Y ME DEVUELVEN UNA LISTA DE CASILLAS
