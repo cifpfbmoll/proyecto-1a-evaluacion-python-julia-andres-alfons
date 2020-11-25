@@ -1,8 +1,38 @@
+import os
+#encoding: "UTF-16"
+
 #GUARDAR DISPAROS
 def guardarDisparos(lista, disparo): #Se pasa la lista de disparos i el disparo del jugador
-    letraInicio, letraFinal = int(equivalencias.get(disparo[0])), int(disparo[1])#Separar los valores del disparo en dos variables
+    letraInicio = int(equivalencias.get(disparo[0]))
+    letraFinal = int(disparo[1:])
+    letraFinal-=1
     lista[letraInicio][letraFinal] = "D"#Cambiar la posicion de la lista por una D de disparo.
-#encoding: "UTF-16"
+
+#Cambio de jugador
+def cambioJugador(turno):
+    limpiarPantalla()#Limpiar
+    enter = str
+    print("Turno del segundo jugador")
+    #Loop que espera al usuario a que pulse enter
+    while enter != "" "":
+        print("Pulsa enter para continuar!")
+        enter = input("> ")
+    limpiarPantalla()#Limpiar
+    #Devuelve el turno
+    if turno == 0:
+        return 1
+    else:
+        return 0
+
+
+#LIMPIAR PANTALLA
+def limpiarPantalla():
+    if os.name == "posix": #Para mac y linux
+        _ = os.system("clear")
+    else:#Para windows
+        _ = os.system("cls")
+
+limpiarPantalla()
 
 #INSTRUCCIONES
 def instrucciones():
