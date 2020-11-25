@@ -192,5 +192,5 @@ juego()
 
 #GUARDAR DISPAROS
 def guardarDisparos(lista, disparo): #Se pasa la lista de disparos i el disparo del jugador
-    letraInicio, letraFinal = int(equivalencias.get(disparo[0])), int(disparo[1])#Separar los valores del disparo en dos variables
+    letraInicio, letraFinal = int(equivalencias.get(disparo[0])), int(disparo[1]-1)#Separar los valores del disparo en dos variables
     lista[letraInicio][letraFinal] = "D"#Cambiar la posicion de la lista por una D de disparo.
