@@ -1,3 +1,7 @@
+#GUARDAR DISPAROS
+def guardarDisparos(lista, disparo): #Se pasa la lista de disparos i el disparo del jugador
+    letraInicio, letraFinal = int(equivalencias.get(disparo[0])), int(disparo[1])#Separar los valores del disparo en dos variables
+    lista[letraInicio][letraFinal] = "D"#Cambiar la posicion de la lista por una D de disparo.
 #encoding: "UTF-16"
 
 #INSTRUCCIONES
@@ -36,28 +40,57 @@ def colocarBarco(lista_barcos, casilla):
     lista_barcos[int(equivalencias[letra_inicio])][numero_inicio-1] = 'X'
     
 
-def imprimirTablero(jugadores, jugador_actual, *jugador_rival):
+def imprimirTableroBarcos(jugadores, turno):
     letras = ('A |', 'B |', 'C |', 'D |', 'E |', 'F |', 'G |', 'H |', 'I |', 'J |')
     print('     1  2  3  4  5  6  7  8  9 10')
     print('---------------------------------')
 
-    for fila in range(len(jugadores[jugador_actual]['barcos'])):
+    if turno == 0:
+        rival = 1
+    else: rival = 0
+
+    # Imprimo mi tablero de barcos con los disparos del rival
+    for fila in range(len(jugadores[turno]['barcos'])):
         print(letras[fila], end=" ")
-        for columna in range(len(jugadores[jugador_actual]['barcos'][fila])):
-            # print(columna)
-            if jugadores[jugador_actual]['barcos'][fila][columna] == 'X':
+        for columna in range(len(jugadores[turno]['barcos'][fila])):
+            ## Barcos que me han disparado
+            if jugadores[turno]['barcos'][fila][columna] == 'X' and jugadores[rival]['disparos'][fila][columna] == 'D':
+                print('DD', end = " ")
+            ## DISPAROS DEL RIVAL EN AGUA
+            elif jugadores[turno]['barcos'][fila][columna] != 'X' and jugadores[rival]['disparos'][fila][columna] == 'D':
+                print('~~', end = " ")
+            # MIS BARCOS
+            elif jugadores[turno]['barcos'][fila][columna] == 'X' and jugadores[rival]['disparos'][fila][columna] != 'D':
                 print('XX', end = " ")
+            # Zonas de agua sin disparos y sin barcos
             else: 
                 print('--', end = " ")
         print(end = "\n")
 
-# lista = [[j for j in range(0,10)] for i in range(0,10)]
-# imprimirTablero(lista)
+def imprimirTableroDisparos(jugadores, turno):
+    letras = ('A |', 'B |', 'C |', 'D |', 'E |', 'F |', 'G |', 'H |', 'I |', 'J |')
+    print('     1  2  3  4  5  6  7  8  9 10')
+    print('---------------------------------')
 
-# print('esta es la lista origianl',lista)
-# colocarBarco(lista,'A3' )
-# print('esta es la lista con un barco en la casilla A3',lista)
-# imprimirTablero(lista)
+    if turno == 0:
+        rival = 1
+    else: rival = 0
+    # Imprimo el tablero de mis disparos
+    for fila in range(len(jugadores[turno]['disparos'])):
+        print(letras[fila], end=" ")
+        for columna in range(len(jugadores[turno]['disparos'][fila])):
+            #  SI HE DADO A UN BARCO
+            if jugadores[turno]['disparos'][fila][columna] == 'D' and jugadores[rival]['barcos'][fila][columna] == 'X':
+                print('TT', end = " ")
+            #  Si he dado a agua
+            elif jugadores[turno]['disparos'][fila][columna] == 'D' and jugadores[rival]['barcos'][fila][columna] != 'X':
+                print('AG', end = " ")
+            # Casillas que no se que hay
+            else: 
+                print('--', end = " ")
+        print(end = "\n")
+
+
 
 
 #ASUMIMOS QUE LA ENTRADA DEL USUARIO VA A SER SIEMPRE ALGO COMO ESTO: "B3 B7", "A5 A1"
@@ -125,23 +158,24 @@ def juego():
             jugador2 = input('escribe tu nombre jugador 2: ')
 
             # inicializo una lista de 2 diccionarios con la info de cada jugador
-            jugadores = [{'nombre': jugador1},
-                        {'nombre': jugador2}]
+            tablero = [[j for j in range(0,10)] for i in range(0,10)]
+            jugadores = [{'nombre': jugador1,
+                        'barcos':tablero[:],
+                        'disparos':tablero[:]},
+                        {'nombre': jugador2,
+                        'barcos':tablero[:],
+                        'disparos':tablero[:]}]
+
 
             # Le preguinto a cada  jugador donde quiere colocar los barcos
+            turno_actual = 0
             for jugador in jugadores:
                 #Tengo que saber cuantos barcos hay de cada . Pongo dos de momento para probar          
                 lista_barcos = (4,2)
                 print('Hola', jugador['nombre'])
                 # creo el tablero del jugador
-                tablero = [[j for j in range(0,10)] for i in range(0,10)]
-                # guardo el tablero en el diccionario de ese jugador
-                jugador['barcos'] = tablero
-                jugador['disparos'] = tablero
-            
-
+                # print(jugadores)
                 for barco in lista_barcos:
-                    imprimirTablero(jugadores,0) ## Esto hay qye arregrarlo
                     coordenadas_barco = input(f'Escribe donde quieres colocar tu barco de {barco} casillas. Indicando la casilla de inicio y la de fin. Por ejemplo para el barco de 4: A1 A4: ')
                     #  AQUI VAN lAS COMPROBACIONES Y ME DEVUELVEN UNA LISTA DE CASILLAS
                     listaPosBarco = []
@@ -152,31 +186,27 @@ def juego():
                     # SI todo es correcto
                         for casilla in listaPosBarco:
                             colocarBarco(jugador['barcos'], casilla)
+                        imprimirTableroBarcos(jugadores,turno_actual) 
             
+                turno_actual +=1
+                
             ganador = False
+            
+            turno_actual = 0
             while ganador == False:
-                jugador = jugadores[0]
-                print('hola', jugador['nombre'])
+                print('hola', jugadores[turno_actual]['nombre'])
+
                 ##MUestro tus barcos
                 print('estos Son tus barcos')
-                imprimirTablero(jugador['barcos'], jugadores[1]['disparos'])
+                imprimirTableroBarcos(jugadores, turno_actual)
 
-                #Muestro los disparos
-                print('Estos son tus disparos')
-                imprimirTablero(jugadores[1]['barcos'], jugador['disparos'])
-                input('pulsa una tecla para continuar')
-
-                jugador = jugadores[1]
-                print('hola', jugador['nombre'])
-                print('estos Son tus barcos')
-                imprimirTablero(jugador['barcos'], jugadores[0]['disparos'])
-
-                #Muestro los disparos
-                print('Estos son tus disparos')
-                imprimirTablero(jugadores[0]['barcos'], jugador['disparos'])
-                input('pulsa una tecla para continuar')
-
-            ##Empezamos a disparar
+                ##Empezamos a disparar
+                guardarDisparos(jugadores[turno_actual]['barcos'], 'A1')
+                guardarDisparos(jugadores[turno_actual]['barcos'], 'C1')
+                print('estos Son tus disparons')
+                imprimirTableroDisparos(jugadores, turno_actual)
+                # turno_actual = cambiarTurno(turno_actual)
+                ganador = True #Esto es para qe no entre en bucle
             
 
         elif entrada == "2":
@@ -190,7 +220,3 @@ def juego():
 juego()
 
 
-#GUARDAR DISPAROS
-def guardarDisparos(lista, disparo): #Se pasa la lista de disparos i el disparo del jugador
-    letraInicio, letraFinal = int(equivalencias.get(disparo[0])), int(disparo[1])#Separar los valores del disparo en dos variables
-    lista[letraInicio][letraFinal] = "D"#Cambiar la posicion de la lista por una D de disparo.
