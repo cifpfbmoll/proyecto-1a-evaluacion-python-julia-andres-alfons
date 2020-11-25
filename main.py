@@ -245,7 +245,7 @@ def juego():
                     coordenadas_barco = input(f'Escribe donde quieres colocar tu barco de {barco} casillas. Indicando la casilla de inicio y la de fin. Por ejemplo para el barco de 4: A1 A4: ')
                     #  AQUI VAN lAS COMPROBACIONES Y ME DEVUELVEN UNA LISTA DE CASILLAS
                     listaPosBarco = []
-                    comprobacion1 = posBarco(coordenadas_barco, barco, listaPosBarco)
+                    comprobacion1 = posBarco(trocear(coordenadas_barco), barco, listaPosBarco)
                     comprobacion2 = comprobarCasillas(jugador['barcos'], listaPosBarco)
                     if comprobacion1 and comprobacion2:
                         # lista_casillas = ['A1', 'A2', 'A3', 'A4']
