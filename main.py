@@ -137,40 +137,65 @@ def imprimirTableroDisparos(jugadores, turno):
 #ASUMIMOS QUE LA ENTRADA DEL USUARIO VA A SER SIEMPRE ALGO COMO ESTO: "B3 B7", "A5 A1"
 #COMPRUEBA SI EL BARCO TIENE UNA ORIENTACION Y TAMAÑO CORRECTOS. DESPUES METE TODAS LAS COORDENADAS QUE OCUPA EL BARCO EN listaPosBarco
 
-def posBarco(casilla, tamano, listaPosBarco):
+def trocear(casilla):
+    aux = casilla.upper()
+    aux = aux.replace(" ", "")
+    if len(aux) == 6 or len(aux) == 5:
+        aux = aux.replace("1", "")
+        return aux
+    else:
+        return aux
+
+def posBarco(trozo, tamano, listaPosBarco):
     if tamano > 1:
-        if casilla[1] == casilla[4]: #SI LOS NUMEROS SON IGUALES EL BARCO ESTA EN VERTICAL Y CONTAMOS LETRAS
-            orientacion = int(equivalencias[casilla[0]]) - int(equivalencias[casilla[3]]) 
+        listaLetras = list(equivalencias.keys())
+        if trozo[0] == trozo[2]:    #LETRAS IGUALES, BARCO EN HORIZONTAL, CONTAMOS NUMEROS
+            if trozo[1] == "0":
+                orientacion = 10 - int(trozo[3])
+            elif trozo[3] == "0":
+                orientacion = int(trozo[1]) - 10
+            else:    
+                orientacion = int(trozo[1]) - int(trozo[3])
             var = abs(orientacion) + 1
             if var == tamano:
                 if orientacion < 0:
                     for i in range(tamano):
-                        aux = str(int(equivalencias[casilla[1]])+i) + str(casilla[4])
+                        aux = str(trozo[0]) + str(int(trozo[1])+i)
                         listaPosBarco.append(aux)
                 else:
                     for i in range(tamano):
-                        aux = str(int(equivalencias[casilla[1]])+i) + str(casilla[4])
+                        if trozo[1] == "0":
+                            comp = "10"
+                        aux = str(trozo[0]) + str(comp-i)
                         listaPosBarco.append(aux)
                 return True
             else:
                 return False
-        elif casilla[0] == casilla[3]: #SI LAS LETRAS SON IGUALES EL BARCO ESTA EN HORIZONTAL Y CONTAMOS NUMEROS
-            orientacion = int(casilla[1]) - int(casilla[4])
+        elif trozo[1] == trozo[3]:  #NUMEROS IGUALES, BARCO EN VERTICAL, CONTAMOS LETRAS
+            orientacion = int(equivalencias[trozo[0]]) - int(equivalencias[trozo[2]]) 
             var = abs(orientacion) + 1
             if var == tamano:
                 if orientacion < 0:
                     for i in range(tamano):
-                        aux = str(casilla[0]) + str(int(casilla[1])+i)
-                        listaPosBarco.append(aux)
+                        aux = int(equivalencias[trozo[0]])+i
+                        aux = listaLetras[aux]
+                        if trozo[1] == "0":
+                            comp = "10"
+                        listaPosBarco.append(str(aux) + str(comp))
                 else:
                     for i in range(tamano):
-                        aux = str(casilla[0]) + str(int(casilla[1])-i)
-                        listaPosBarco.append(aux)
+                        aux = int(equivalencias[trozo[0]])-i
+                        aux = listaLetras[aux]
+                        if trozo[1] == "0":
+                            comp = "10"
+                        listaPosBarco.append(str(aux) + str(comp))
                 return True
+            else:
+                return False
         else:
             return False
     else:
-        listaPosBarco.append(casilla)
+        listaPosBarco.append(trozo)
         return True
 
     #USAMOS listaBarco DONDE SE HA ALMACENADO TODAS LAS COORDENADAS QUE OCUPARÁ EL BARCO Y VAMOS MIRANDO UNA POR UNA SI ALREDEDOR O EN ESA MISMA COORDENADA
