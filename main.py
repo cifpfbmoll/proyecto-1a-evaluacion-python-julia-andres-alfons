@@ -1,10 +1,22 @@
 import os
-#GUARDAR DISPAROS
+#encoding: "UTF-16"
+
 def guardarDisparos(lista, disparo): #Se pasa la lista de disparos i el disparo del jugador
-    letraInicio = int(equivalencias.get(disparo[0]))
-    letraFinal = int(disparo[1:])
-    letraFinal-=1
-    lista[letraInicio][letraFinal] = "D"#Cambiar la posicion de la lista por una D de disparo.
+    prueba = False
+    while prueba == False:#Repite el disparo hasta que sea correcto
+        try:#Probar el codigo
+            disparo.upper()
+            letraInicio = int(equivalencias.get(disparo[0]))
+            letraFinal = int(disparo[1:])
+            letraFinal-=1
+            lista[letraInicio][letraFinal] = "D"#Cambiar la posicion de la lista por una D de disparo.
+        except:#Si hay error
+            print("Error, el disparo esta fuera de rango, repitelo")
+            disparo = input("Donde quieres disparar?> ")
+            
+        else:#Si funciona bien
+            prueba = True
+    
 
 #Cambio de jugador
 def cambioJugador(turno):
