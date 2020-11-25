@@ -164,7 +164,8 @@ def posBarco(trozo, tamano, listaPosBarco):
                         listaPosBarco.append(aux)
                 else:
                     for i in range(tamano):
-                        if trozo[1] == "0":
+                        comp = trozo[1]
+                        if comp == "0":
                             comp = "10"
                         aux = str(trozo[0]) + str(comp-i)
                         listaPosBarco.append(aux)
@@ -179,14 +180,16 @@ def posBarco(trozo, tamano, listaPosBarco):
                     for i in range(tamano):
                         aux = int(equivalencias[trozo[0]])+i
                         aux = listaLetras[aux]
-                        if trozo[1] == "0":
+                        comp = trozo[1]
+                        if comp == "0":
                             comp = "10"
                         listaPosBarco.append(str(aux) + str(comp))
                 else:
                     for i in range(tamano):
                         aux = int(equivalencias[trozo[0]])-i
                         aux = listaLetras[aux]
-                        if trozo[1] == "0":
+                        comp = trozo[1]
+                        if comp == "0":
                             comp = "10"
                         listaPosBarco.append(str(aux) + str(comp))
                 return True
