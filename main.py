@@ -56,6 +56,66 @@ def limpiarPantalla():
 
 limpiarPantalla()
 
+def juego():
+    print ("COMENZAR PARTIDA")
+    jugador1 = input('Escribe tu nombre jugador 1: ')
+    jugador2 = input('escribe tu nombre jugador 2: ')
+    lista_barcos = (4,2)
+    trozosBarco = contarTrozosBarco(lista_barcos)
+
+    # inicializo una lista de 2 diccionarios con la info de cada jugador
+    tablero = [[j for j in range(0,10)] for i in range(0,10)]
+    jugadores = [{'nombre': jugador1,
+                'barcos':[[j for j in range(0,10)] for i in range(0,10)],
+                'disparos':[[j for j in range(0,10)] for i in range(0,10)],
+                'aciertos': 0},
+                {'nombre': jugador2,
+                'barcos':[[j for j in range(0,10)] for i in range(0,10)],
+                'disparos':[[j for j in range(0,10)] for i in range(0,10)],
+                'aciertos': 0}]
+
+
+    # Le preguinto a cada  jugador donde quiere colocar los barcos
+    turno_actual = 0
+    for jugador in jugadores:
+        #Tengo que saber cuantos barcos hay de cada . Pongo dos de momento para probar          
+        print('Hola', jugador['nombre'])
+        # creo el tablero del jugador
+        # print(jugadores)
+        for barco in lista_barcos:
+            coordenadas_barco = input(f'Escribe donde quieres colocar tu barco de {barco} casillas. Indicando la casilla de inicio y la de fin. Por ejemplo para el barco de 4: A1 A4: ')
+            #  AQUI VAN lAS COMPROBACIONES Y ME DEVUELVEN UNA LISTA DE CASILLAS
+            listaPosBarco = []
+            comprobacion1 = posBarco(trocear(coordenadas_barco), barco, listaPosBarco)
+            comprobacion2 = comprobarCasillas(jugador['barcos'], listaPosBarco)
+            if comprobacion1 and comprobacion2:
+                # lista_casillas = ['A1', 'A2', 'A3', 'A4']
+            # SI todo es correcto
+                for casilla in listaPosBarco:
+                    colocarBarco(jugador['barcos'], casilla)
+                imprimirTableroBarcos(jugadores,turno_actual) 
+            
+        turno_actual +=1
+               
+    ganador = False
+            
+    turno_actual = 0
+    while ganador == False:
+        print('hola', jugadores[turno_actual]['nombre'])
+
+        ##MUestro tus barcos
+        print('estos Son tus barcos')
+        imprimirTableroBarcos(jugadores, turno_actual)
+
+        ##Empezamos a disparar
+        guardarDisparos(jugadores[turno_actual]['barcos'], 'A1')
+        guardarDisparos(jugadores[turno_actual]['barcos'], 'C1')
+        print('estos Son tus disparons')
+        imprimirTableroDisparos(jugadores, turno_actual)
+        # turno_actual = cambiarTurno(turno_actual)
+        ganador = True #Esto es para qe no entre en bucle
+
+
 #INSTRUCCIONES
 def instrucciones():
     #Explicar como funciona el juego
@@ -225,70 +285,25 @@ def comprobarCasillas(listaJugador, listaPosBarco):
                     if listaJugador[varj+(j-1)][vark+(k-1)] == "<O>":  #SUPONGAMOS <O> SIMBOLO DE BARCO
                         return False
     return True
-        
 
-def juego():
+def contarTrozosBarco(barcos):
+    trozos = 0
+    for i in range(len(barcos)):
+        trozos += int(barcos[i])
+    return trozos
+
+def comprobarGanador(listaJugadores, turno):
+    listaJugadores[turno]['aciertos'] += 1
+
+    pass
+    
+def programa():
     seguir = True
     while seguir:
         print ("1 --- Comenzar Partida\n2 --- Instrucciones\n3 --- Salir")
         entrada = str(input())
         if entrada == "1":
-            print ("COMENZAR PARTIDA")
-            jugador1 = input('Escribe tu nombre jugador 1: ')
-            jugador2 = input('escribe tu nombre jugador 2: ')
-
-            # inicializo una lista de 2 diccionarios con la info de cada jugador
-            tablero = [[j for j in range(0,10)] for i in range(0,10)]
-            jugadores = [{'nombre': jugador1,
-                        'barcos':[[j for j in range(0,10)] for i in range(0,10)],
-                        'disparos':[[j for j in range(0,10)] for i in range(0,10)]},
-                        {'nombre': jugador2,
-                        'barcos':[[j for j in range(0,10)] for i in range(0,10)],
-                        'disparos':[[j for j in range(0,10)] for i in range(0,10)]}]
-
-
-            # Le preguinto a cada  jugador donde quiere colocar los barcos
-            turno_actual = 0
-            for jugador in jugadores:
-                #Tengo que saber cuantos barcos hay de cada . Pongo dos de momento para probar          
-                lista_barcos = (4,2)
-                print('Hola', jugador['nombre'])
-                # creo el tablero del jugador
-                # print(jugadores)
-                for barco in lista_barcos:
-                    coordenadas_barco = input(f'Escribe donde quieres colocar tu barco de {barco} casillas. Indicando la casilla de inicio y la de fin. Por ejemplo para el barco de 4: A1 A4: ')
-                    #  AQUI VAN lAS COMPROBACIONES Y ME DEVUELVEN UNA LISTA DE CASILLAS
-                    listaPosBarco = []
-                    comprobacion1 = posBarco(trocear(coordenadas_barco), barco, listaPosBarco)
-                    comprobacion2 = comprobarCasillas(jugador['barcos'], listaPosBarco)
-                    if comprobacion1 and comprobacion2:
-                        # lista_casillas = ['A1', 'A2', 'A3', 'A4']
-                    # SI todo es correcto
-                        for casilla in listaPosBarco:
-                            colocarBarco(jugador['barcos'], casilla)
-                        imprimirTableroBarcos(jugadores,turno_actual) 
-            
-                turno_actual +=1
-                
-            ganador = False
-            
-            turno_actual = 0
-            while ganador == False:
-                print('hola', jugadores[turno_actual]['nombre'])
-
-                ##MUestro tus barcos
-                print('estos Son tus barcos')
-                imprimirTableroBarcos(jugadores, turno_actual)
-
-                ##Empezamos a disparar
-                guardarDisparos(jugadores[turno_actual]['barcos'], 'A1')
-                guardarDisparos(jugadores[turno_actual]['barcos'], 'C1')
-                print('estos Son tus disparons')
-                imprimirTableroDisparos(jugadores, turno_actual)
-                # turno_actual = cambiarTurno(turno_actual)
-                ganador = True #Esto es para qe no entre en bucle
-            
-
+            juego()
         elif entrada == "2":
             instrucciones()
         elif entrada == "3":
@@ -297,6 +312,4 @@ def juego():
         else:
             print ("Vuelve a Introducir")
 
-juego()
-
-
+programa()
