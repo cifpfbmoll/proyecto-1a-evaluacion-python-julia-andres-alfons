@@ -1,21 +1,32 @@
 import os
 #encoding: "UTF-16"
 
-def guardarDisparos(lista, disparo): #Se pasa la lista de disparos i el disparo del jugador
-    prueba = False
-    while prueba == False:#Repite el disparo hasta que sea correcto
-        try:#Probar el codigo
-            disparo.upper()
-            letraInicio = int(equivalencias.get(disparo[0]))
-            letraFinal = int(disparo[1:])
-            letraFinal-=1
+#Revisar disparo
+def revisarDisparo(lista, letraInicio,letraFinal):
+    try:#Probar el codigo
+        if lista[letraInicio][letraFinal] != "D":#Si no se ha disparado en la casilla
             lista[letraInicio][letraFinal] = "D"#Cambiar la posicion de la lista por una D de disparo.
-        except:#Si hay error
-            print("Error, el disparo esta fuera de rango, repitelo")
-            disparo = input("Donde quieres disparar?> ")
-            
-        else:#Si funciona bien
-            prueba = True
+        else:
+            print("Ya has disparado en esta casilla, repite el disparo")
+            guardarDisparos(lista)#Volver a disparar
+    except:#Si hay error
+        print("Error, el disparo esta fuera de rango, repitelo")
+        guardarDisparos(lista)#Volver a disparar
+
+    else:#Si funciona bien
+        return True
+
+
+#Guardar disparo
+def guardarDisparos(lista): #Se pasa la lista de disparos i el disparo del jugador
+    disparo = input("Donde quieres disparar?> ")
+    disparo.upper()
+    letraInicio = int(equivalencias.get(disparo[0]))
+    letraFinal = int(disparo[1:])
+    letraFinal-=1
+    revisarDisparo(lista, letraInicio,letraFinal)#Comprobar si el disparo no esta repetido y esta bien
+
+        
     
 
 #Cambio de jugador
