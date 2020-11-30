@@ -1,11 +1,31 @@
-JUEGO DE LA OCA:
-Hemos decicidido hacer el juego de la oca.
-Este es necessarió que para empezar haya una funcion que pregunte al usuario que desea hacer: 1. Empezar a jugar, 2. 
+JUEGO HUNDIR LA FLOTA
 
 
+- 17 de Noviembre: crear función menu, tenemos que generar un diccionario de equivalencias números/letras, función
+comprobar dirección barco, longitud barco, comprobar casillas alrededor del barco (que están vacías), insertar barco, renderizar tablero,
+iniciamos el programa principal.
 
 
+- 23 Noviembre: Integamos las nuevas funciones en el programa principal, funcion de guardar el disparo, arreglo de las funciones
+de comprobar si la posición del barco es legal, creamos sistema de turnos hardcodeado en el programa principal, creación del readme
+y limpieza de código.
 
--   Se han arreglado errores de la funcion de "guardarDisparos" i se han implementado mejoras con el try-except, en el qual no se guardaban bien en la lista los disparos, se ha creado la funcion de "limpiarPantalla"
-    que tiene la funcion de limpiar la pantalla tanto si es en MAC, linux o Windows i se ha creado la funcion de "cambioJugador" la qual tiene la funcion de cambiar el
-    turno del jugador, limpiando la pantalla para que el jugador nuevo no pueda ver el anterior
+
+- 25 noviembre: Se han arreglado errores de la funcion de "guardarDisparos" y se han implementado mejoras con el try-except, 
+en el cual no se guardaban bien en la lista los disparos,
+se ha creado la funcion de "limpiarPantalla"
+que tiene la funcion de limpiar la pantalla tanto si es en MAC, linux o Windows y se ha creado la funcion de
+ "cambioJugador" la qual tiene la funcion de cambiar el
+turno del jugador, limpiando la pantalla para que el jugador nuevo no pueda ver el anterior, se ha cambiado la función de 
+imprimir tablero en general, por imprimir tableroBarcos e imprimirTablero disparos, se arregla la función de comprobar la posición 
+del barco porque daba error si se insertaba barco en la columna 10. Lo integramos en el programa principal.
+
+
+- 30 De noviembre: incluir la función de limpiar pantalla en el programa principal, decidimos que no se puede disparar
+    dos veces en el mismo sitio, Alfons va a crear una función para comprobar si se ha disparado ya , luego se integrará en la función guardar 
+    disparo, 
+    crear función si se ha hiteado un barco,
+    crear función de comprobar ganador (se acumularán los hits si la función de hitear barco devuelve true, Devolverá ganador
+    si llega al límite de las casillas con barco totales), 
+    crear función contar casillas/trozo de barcos.
+    separamos la opción de juego de la opción del menu 
