@@ -31,14 +31,6 @@ def guardarDisparos(lista): #Se pasa la lista de disparos i el disparo del jugad
 
 #Cambio de jugador
 def cambioJugador(turno):
-    limpiarPantalla()#Limpiar
-    enter = str
-    print("Turno del segundo jugador")
-    #Loop que espera al usuario a que pulse enter
-    while enter != "" "":
-        print("Pulsa enter para continuar!")
-        enter = input("> ")
-    limpiarPantalla()#Limpiar
     #Devuelve el turno
     if turno == 0:
         return 1
@@ -48,16 +40,20 @@ def cambioJugador(turno):
 
 #LIMPIAR PANTALLA
 def limpiarPantalla():
+    input('Pulsa enter para acabar el turno')
     if os.name == "posix": #Para mac y linux
         _ = os.system("clear")
     else:#Para windows
         _ = os.system("cls")
+    input('Pulsa enter para empezar tu turno')
+    
 
-limpiarPantalla()
+
 
 def juego():
     print ("COMENZAR PARTIDA")
     jugador1 = input('Escribe tu nombre jugador 1: ')
+    limpiarPantalla()
     jugador2 = input('escribe tu nombre jugador 2: ')
     lista_barcos = (4,2)
     trozosBarco = contarTrozosBarco(lista_barcos)
@@ -93,13 +89,14 @@ def juego():
                 for casilla in listaPosBarco:
                     colocarBarco(jugador['barcos'], casilla)
                 imprimirTableroBarcos(jugadores,turno_actual) 
-            
+        limpiarPantalla()   
+
         turno_actual +=1
                
-    ganador = False
+    ganador = 0
             
     turno_actual = 0
-    while ganador == False:
+    while ganador != 3: #Esto es para qe no entre en bucle
         print('hola', jugadores[turno_actual]['nombre'])
 
         ##MUestro tus barcos
@@ -107,12 +104,14 @@ def juego():
         imprimirTableroBarcos(jugadores, turno_actual)
 
         ##Empezamos a disparar
-        guardarDisparos(jugadores[turno_actual]['barcos'], 'A1')
-        guardarDisparos(jugadores[turno_actual]['barcos'], 'C1')
         print('estos Son tus disparons')
         imprimirTableroDisparos(jugadores, turno_actual)
-        # turno_actual = cambiarTurno(turno_actual)
-        ganador = True #Esto es para qe no entre en bucle
+        guardarDisparos(jugadores[turno_actual]['disparos'])
+        print(jugadores[turno_actual]['disparos'])
+        turno_actual = cambioJugador(turno_actual)
+        limpiarPantalla()
+
+        ganador += 1 #Esto es para qe no entre en bucle
 
 
 #INSTRUCCIONES
