@@ -44,7 +44,6 @@ def cambioJugador(turno):
         return 1
     else:
         return 0
-#encoding: "UTF-16"
 
 
 #LIMPIAR PANTALLA
