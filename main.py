@@ -16,7 +16,6 @@ def revisarDisparo(lista, letraInicio,letraFinal):
     else:#Si funciona bien
         return True
 
-
 #Guardar disparo
 def guardarDisparos(lista): #Se pasa la lista de disparos i el disparo del jugador
     disparo = input("Donde quieres disparar?> ")
@@ -25,9 +24,7 @@ def guardarDisparos(lista): #Se pasa la lista de disparos i el disparo del jugad
     letraFinal = int(disparo[1:])
     letraFinal-=1
     revisarDisparo(lista, letraInicio,letraFinal)#Comprobar si el disparo no esta repetido y esta bien
-  
-    
-
+     
 #Cambio de jugador
 def cambioJugador(turno):
     #Devuelve el turno
@@ -35,7 +32,6 @@ def cambioJugador(turno):
         return 1
     else:
         return 0
-
 
 #LIMPIAR PANTALLA
 def limpiarPantalla():
@@ -47,14 +43,12 @@ def limpiarPantalla():
     input('Pulsa enter para empezar tu turno')
     
 
-
-
 def juego():
     print ("COMENZAR PARTIDA")
     jugador1 = input('Escribe tu nombre jugador 1: ')
     limpiarPantalla()
     jugador2 = input('escribe tu nombre jugador 2: ')
-    lista_barcos = (4,2)
+    lista_barcos = (2,2)
     trozosBarco = contarTrozosBarco(lista_barcos)
 
     # inicializo una lista de 2 diccionarios con la info de cada jugador
@@ -91,10 +85,10 @@ def juego():
 
         turno_actual +=1
                
-    ganador = 0
+    ganador = False
             
-    turno_actual = 0
-    while ganador != 3: #Esto es para qe no entre en bucle
+    turno_actual = False
+    while ganador == False: #Esto es para qe no entre en bucle
         print('hola', jugadores[turno_actual]['nombre'])
 
         ##MUestro tus barcos
@@ -106,10 +100,9 @@ def juego():
         imprimirTableroDisparos(jugadores, turno_actual)
         guardarDisparos(jugadores[turno_actual]['disparos'])
         imprimirTableroDisparos(jugadores, turno_actual)
-        # ganador = comprobarGanador(jugadores, turno_actual)
+        ganador = comprobarGanador(jugadores, turno_actual, trozosBarco)
         turno_actual = cambioJugador(turno_actual)
         limpiarPantalla()
-        ganador += 1 #Esto es para qe no entre en bucle
 
     print(f"Ha ganado {jugadores[turno_actual]['nombre']}") 
 
@@ -203,8 +196,6 @@ def imprimirTableroDisparos(jugadores, turno):
         print(end = "\n")
 
 
-
-
 #ASUMIMOS QUE LA ENTRADA DEL USUARIO VA A SER SIEMPRE ALGO COMO ESTO: "B3 B7", "A5 A1"
 #COMPRUEBA SI EL BARCO TIENE UNA ORIENTACION Y TAMAÑO CORRECTOS. DESPUES METE TODAS LAS COORDENADAS QUE OCUPA EL BARCO EN listaPosBarco
 
@@ -282,7 +273,7 @@ def comprobarCasillas(listaJugador, listaPosBarco):
         for j in range(3):
             for k in range(3):
                 if ((varj+(j-1)) >= 0 and (vark+(k-1)) >= 0) and ((varj+(j-1)) <= 9 and (vark+(k-1)) <= 9): #TENEMOS EN CUENTA QUE SI UNA DE LAS COORDENADAS TOCA UNA PARED NO MIRAREMOS FUERA DEL RANGO DE LA MATRIZ
-                    if listaJugador[varj+(j-1)][vark+(k-1)] == "XX":  #SUPONGAMOS <O> SIMBOLO DE BARCO
+                    if listaJugador[varj+(j-1)][vark+(k-1)] == "X":  #SUPONGAMOS <O> SIMBOLO DE BARCO
                         return False
     return True
 
@@ -298,6 +289,7 @@ def comprobarGanador(listaJugadores, turno, maxBarcos):
         return True
     else:
         return False
+
 def programa():
     seguir = True
     while seguir:
@@ -305,7 +297,6 @@ def programa():
         entrada = str(input())
         if entrada == "1":
             juego()
-            
             seguir = False
         elif entrada == "2":
             instrucciones()
