@@ -59,7 +59,6 @@ def juego():
     trozosBarco = contarTrozosBarco(lista_barcos)
 
     # inicializo una lista de 2 diccionarios con la info de cada jugador
-    tablero = [[j for j in range(0,10)] for i in range(0,10)]
     jugadores = [{'nombre': jugador1,
                 'barcos':[[j for j in range(0,10)] for i in range(0,10)],
                 'disparos':[[j for j in range(0,10)] for i in range(0,10)],
@@ -70,7 +69,7 @@ def juego():
                 'aciertos': 0}]
 
 
-    # Le preguinto a cada  jugador donde quiere colocar los barcos
+    # Le pregunto a cada  jugador donde quiere colocar los barcos
     turno_actual = 0
     for jugador in jugadores:
         #Tengo que saber cuantos barcos hay de cada . Pongo dos de momento para probar          
@@ -107,11 +106,13 @@ def juego():
         print('estos Son tus disparons')
         imprimirTableroDisparos(jugadores, turno_actual)
         guardarDisparos(jugadores[turno_actual]['disparos'])
-        print(jugadores[turno_actual]['disparos'])
+        imprimirTableroDisparos(jugadores, turno_actual)
+        # ganador = comprobarGanador(jugadores, turno_actual)
         turno_actual = cambioJugador(turno_actual)
         limpiarPantalla()
-
         ganador += 1 #Esto es para qe no entre en bucle
+
+    print(f"Ha ganado {jugadores[turno_actual]['nombre']}") 
 
 
 #INSTRUCCIONES
@@ -292,9 +293,10 @@ def contarTrozosBarco(barcos):
 
 def comprobarGanador(listaJugadores, turno):
     listaJugadores[turno]['aciertos'] += 1
-
-    pass
-    
+    if contarTrozosBarco(listaJugadores[turno]['barcos']) == listaJugadores[turno]['aciertos']:
+        return True
+    else:
+        return False
 def programa():
     seguir = True
     while seguir:
@@ -302,6 +304,8 @@ def programa():
         entrada = str(input())
         if entrada == "1":
             juego()
+            
+            seguir = False
         elif entrada == "2":
             instrucciones()
         elif entrada == "3":
