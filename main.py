@@ -292,9 +292,10 @@ def contarTrozosBarco(barcos):
 
 def comprobarGanador(listaJugadores, turno):
     listaJugadores[turno]['aciertos'] += 1
-
-    pass
-    
+    if contarTrozosBarco(listaJugadores[turno]['barcos']) == listaJugadores[turno]['aciertos']:
+        return True
+    else:
+        return False
 def programa():
     seguir = True
     while seguir:
