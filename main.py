@@ -146,7 +146,7 @@ equivalencias = {
 }
 
 def colocarBarco(lista_barcos, casilla):
-    letra_inicio, numero_inicio = casilla[0], int(casilla[1])
+    letra_inicio, numero_inicio = casilla[0], int(casilla[1:])
     lista_barcos[int(equivalencias[letra_inicio])][numero_inicio-1] = 'X'
     
 
@@ -232,11 +232,11 @@ def posBarco(trozo, tamano, listaPosBarco):
                         aux = str(trozo[0]) + str(int(trozo[1])+i)
                         listaPosBarco.append(aux)
                 else:
-                    for i in range(tamano):
-                        comp = trozo[1]
-                        if comp == "0":
-                            comp = "10"
-                        aux = str(trozo[0]) + str(comp-i)
+                    comp = trozo[1]
+                    if comp == "0":
+                        comp = "10"
+                    for i in range(tamano):            
+                        aux = str(trozo[0]) + str(int(comp)-i)
                         listaPosBarco.append(aux)
                 return True
             else:
@@ -246,20 +246,20 @@ def posBarco(trozo, tamano, listaPosBarco):
             var = abs(orientacion) + 1
             if var == tamano:
                 if orientacion < 0:
+                    comp = trozo[1]
+                    if comp == "0":
+                        comp = "10"
                     for i in range(tamano):
                         aux = int(equivalencias[trozo[0]])+i
-                        aux = listaLetras[aux]
-                        comp = trozo[1]
-                        if comp == "0":
-                            comp = "10"
+                        aux = listaLetras[aux] 
                         listaPosBarco.append(str(aux) + str(comp))
                 else:
+                    comp = trozo[1]
+                    if comp == "0":
+                        comp = "10"
                     for i in range(tamano):
                         aux = int(equivalencias[trozo[0]])-i
-                        aux = listaLetras[aux]
-                        comp = trozo[1]
-                        if comp == "0":
-                            comp = "10"
+                        aux = listaLetras[aux]      
                         listaPosBarco.append(str(aux) + str(comp))
                 return True
             else:
@@ -276,11 +276,11 @@ def posBarco(trozo, tamano, listaPosBarco):
 def comprobarCasillas(listaJugador, listaPosBarco):
     for i in range(len(listaPosBarco)):
         varj = int(equivalencias[listaPosBarco[i][0]])
-        vark = int(listaPosBarco[i][1])-1
+        vark = int(listaPosBarco[i][1:])-1
         for j in range(3):
             for k in range(3):
-                if ((varj+(j-1)) >= 0 and (vark+(k-1)) >= 0) or ((varj+(j-1)) <= 10 and (vark+(k-1)) <= 10): #TENEMOS EN CUENTA QUE SI UNA DE LAS COORDENADAS TOCA UNA PARED NO MIRAREMOS FUERA DEL RANGO DE LA MATRIZ
-                    if listaJugador[varj+(j-1)][vark+(k-1)] == "<O>":  #SUPONGAMOS <O> SIMBOLO DE BARCO
+                if ((varj+(j-1)) >= 0 and (vark+(k-1)) >= 0) and ((varj+(j-1)) <= 9 and (vark+(k-1)) <= 9): #TENEMOS EN CUENTA QUE SI UNA DE LAS COORDENADAS TOCA UNA PARED NO MIRAREMOS FUERA DEL RANGO DE LA MATRIZ
+                    if listaJugador[varj+(j-1)][vark+(k-1)] == "XX":  #SUPONGAMOS <O> SIMBOLO DE BARCO
                         return False
     return True
 
