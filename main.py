@@ -16,7 +16,6 @@ def revisarDisparo(lista, letraInicio,letraFinal):
     else:#Si funciona bien
         return True
 
-
 #Guardar disparo
 def guardarDisparos(lista): #Se pasa la lista de disparos i el disparo del jugador
     disparo = input("Donde quieres disparar?> ")
@@ -25,9 +24,7 @@ def guardarDisparos(lista): #Se pasa la lista de disparos i el disparo del jugad
     letraFinal = int(disparo[1:])
     letraFinal-=1
     revisarDisparo(lista, letraInicio,letraFinal)#Comprobar si el disparo no esta repetido y esta bien
-  
-    
-
+     
 #Cambio de jugador
 def cambioJugador(turno):
     #Devuelve el turno
@@ -35,7 +32,6 @@ def cambioJugador(turno):
         return 1
     else:
         return 0
-
 
 #LIMPIAR PANTALLA
 def limpiarPantalla():
@@ -47,14 +43,12 @@ def limpiarPantalla():
     input('Pulsa enter para empezar tu turno')
     
 
-
-
 def juego():
     print ("COMENZAR PARTIDA")
     jugador1 = input('Escribe tu nombre jugador 1: ')
     limpiarPantalla()
     jugador2 = input('escribe tu nombre jugador 2: ')
-    lista_barcos = (4,2)
+    lista_barcos = (2,2)
     trozosBarco = contarTrozosBarco(lista_barcos)
 
     # inicializo una lista de 2 diccionarios con la info de cada jugador
@@ -76,25 +70,26 @@ def juego():
         # creo el tablero del jugador
         # print(jugadores)
         for barco in lista_barcos:
-            coordenadas_barco = input(f'Escribe donde quieres colocar tu barco de {barco} casillas. Indicando la casilla de inicio y la de fin. Por ejemplo para el barco de 4: A1 A4: ')
-            #  AQUI VAN lAS COMPROBACIONES Y ME DEVUELVEN UNA LISTA DE CASILLAS
-            listaPosBarco = []
-            comprobacion1 = posBarco(trocear(coordenadas_barco), barco, listaPosBarco)
-            comprobacion2 = comprobarCasillas(jugador['barcos'], listaPosBarco)
-            if comprobacion1 and comprobacion2:
-                # lista_casillas = ['A1', 'A2', 'A3', 'A4']
-            # SI todo es correcto
-                for casilla in listaPosBarco:
-                    colocarBarco(jugador['barcos'], casilla)
-                imprimirTableroBarcos(jugadores,turno_actual) 
+            seguir = True
+            while seguir:
+                coordenadas_barco = input(f'Escribe donde quieres colocar tu barco de {barco} casillas. Indicando la casilla de inicio y la de fin. Por ejemplo para el barco de 4: A1 A4: ')
+                #  AQUI VAN lAS COMPROBACIONES Y ME DEVUELVEN UNA LISTA DE CASILLAS
+                listaPosBarco = []
+                if posBarco(trocear(coordenadas_barco), barco, listaPosBarco) and comprobarCasillas(jugador['barcos'], listaPosBarco):
+                    # lista_casillas = ['A1', 'A2', 'A3', 'A4']
+                # SI todo es correcto
+                    for casilla in listaPosBarco:
+                        colocarBarco(jugador['barcos'], casilla)
+                    imprimirTableroBarcos(jugadores,turno_actual) 
+                    seguir = False
         limpiarPantalla()   
 
         turno_actual +=1
                
-    ganador = 0
+    ganador = False
             
-    turno_actual = 0
-    while ganador != 3: #Esto es para qe no entre en bucle
+    turno_actual = False
+    while ganador == False: #Esto es para qe no entre en bucle
         print('hola', jugadores[turno_actual]['nombre'])
 
         ##MUestro tus barcos
@@ -106,10 +101,9 @@ def juego():
         imprimirTableroDisparos(jugadores, turno_actual)
         guardarDisparos(jugadores[turno_actual]['disparos'])
         imprimirTableroDisparos(jugadores, turno_actual)
-        # ganador = comprobarGanador(jugadores, turno_actual)
+        ganador = comprobarGanador(jugadores, turno_actual, trozosBarco)
         turno_actual = cambioJugador(turno_actual)
         limpiarPantalla()
-        ganador += 1 #Esto es para qe no entre en bucle
 
     print(f"Ha ganado {jugadores[turno_actual]['nombre']}") 
 
@@ -199,8 +193,6 @@ def imprimirTableroDisparos(jugadores, turno):
         print(end = "\n")
 
 
-
-
 #ASUMIMOS QUE LA ENTRADA DEL USUARIO VA A SER SIEMPRE ALGO COMO ESTO: "B3 B7", "A5 A1"
 #COMPRUEBA SI EL BARCO TIENE UNA ORIENTACION Y TAMAÑO CORRECTOS. DESPUES METE TODAS LAS COORDENADAS QUE OCUPA EL BARCO EN listaPosBarco
 
@@ -214,59 +206,63 @@ def trocear(casilla):
         return aux
 
 def posBarco(trozo, tamano, listaPosBarco):
-    if tamano > 1:
-        listaLetras = list(equivalencias.keys())
-        if trozo[0] == trozo[2]:    #LETRAS IGUALES, BARCO EN HORIZONTAL, CONTAMOS NUMEROS
-            if trozo[1] == "0":
-                orientacion = 10 - int(trozo[3])
-            elif trozo[3] == "0":
-                orientacion = int(trozo[1]) - 10
-            else:    
-                orientacion = int(trozo[1]) - int(trozo[3])
-            var = abs(orientacion) + 1
-            if var == tamano:
-                if orientacion < 0:
-                    for i in range(tamano):
-                        aux = str(trozo[0]) + str(int(trozo[1])+i)
-                        listaPosBarco.append(aux)
+    try:
+        if tamano > 1:
+            listaLetras = list(equivalencias.keys())
+            if trozo[0] == trozo[2]:    #LETRAS IGUALES, BARCO EN HORIZONTAL, CONTAMOS NUMEROS
+                if trozo[1] == "0":
+                    orientacion = 10 - int(trozo[3])
+                elif trozo[3] == "0":
+                    orientacion = int(trozo[1]) - 10
+                else:    
+                    orientacion = int(trozo[1]) - int(trozo[3])
+                var = abs(orientacion) + 1
+                if var == tamano:
+                    if orientacion < 0:
+                        for i in range(tamano):
+                            aux = str(trozo[0]) + str(int(trozo[1])+i)
+                            listaPosBarco.append(aux)
+                    else:
+                        comp = trozo[1]
+                        if comp == "0":
+                            comp = "10"
+                        for i in range(tamano):            
+                            aux = str(trozo[0]) + str(int(comp)-i)
+                            listaPosBarco.append(aux)
+                    return True
                 else:
-                    comp = trozo[1]
-                    if comp == "0":
-                        comp = "10"
-                    for i in range(tamano):            
-                        aux = str(trozo[0]) + str(int(comp)-i)
-                        listaPosBarco.append(aux)
-                return True
-            else:
-                return False
-        elif trozo[1] == trozo[3]:  #NUMEROS IGUALES, BARCO EN VERTICAL, CONTAMOS LETRAS
-            orientacion = int(equivalencias[trozo[0]]) - int(equivalencias[trozo[2]]) 
-            var = abs(orientacion) + 1
-            if var == tamano:
-                if orientacion < 0:
-                    comp = trozo[1]
-                    if comp == "0":
-                        comp = "10"
-                    for i in range(tamano):
-                        aux = int(equivalencias[trozo[0]])+i
-                        aux = listaLetras[aux] 
-                        listaPosBarco.append(str(aux) + str(comp))
+                    return False
+            elif trozo[1] == trozo[3]:  #NUMEROS IGUALES, BARCO EN VERTICAL, CONTAMOS LETRAS
+                orientacion = int(equivalencias[trozo[0]]) - int(equivalencias[trozo[2]]) 
+                var = abs(orientacion) + 1
+                if var == tamano:
+                    if orientacion < 0:
+                        comp = trozo[1]
+                        if comp == "0":
+                            comp = "10"
+                        for i in range(tamano):
+                            aux = int(equivalencias[trozo[0]])+i
+                            aux = listaLetras[aux] 
+                            listaPosBarco.append(str(aux) + str(comp))
+                    else:
+                        comp = trozo[1]
+                        if comp == "0":
+                            comp = "10"
+                        for i in range(tamano):
+                            aux = int(equivalencias[trozo[0]])-i
+                            aux = listaLetras[aux]      
+                            listaPosBarco.append(str(aux) + str(comp))
+                    return True
                 else:
-                    comp = trozo[1]
-                    if comp == "0":
-                        comp = "10"
-                    for i in range(tamano):
-                        aux = int(equivalencias[trozo[0]])-i
-                        aux = listaLetras[aux]      
-                        listaPosBarco.append(str(aux) + str(comp))
-                return True
+                    return False
             else:
                 return False
         else:
-            return False
-    else:
-        listaPosBarco.append(trozo)
-        return True
+            listaPosBarco.append(trozo)
+            return True
+    except:
+        print("Entrada de datos inválida, vuelve a intentarlo")
+        return False
 
     #USAMOS listaBarco DONDE SE HA ALMACENADO TODAS LAS COORDENADAS QUE OCUPARÁ EL BARCO Y VAMOS MIRANDO UNA POR UNA SI ALREDEDOR O EN ESA MISMA COORDENADA
     #SI ESTÁ OCUPADA, SI LO ESTA LA FUNCION DEVUELVE FALSO, SI NO ENCUENTRA NADA DEVUELVE VERDADERO
@@ -278,7 +274,7 @@ def comprobarCasillas(listaJugador, listaPosBarco):
         for j in range(3):
             for k in range(3):
                 if ((varj+(j-1)) >= 0 and (vark+(k-1)) >= 0) and ((varj+(j-1)) <= 9 and (vark+(k-1)) <= 9): #TENEMOS EN CUENTA QUE SI UNA DE LAS COORDENADAS TOCA UNA PARED NO MIRAREMOS FUERA DEL RANGO DE LA MATRIZ
-                    if listaJugador[varj+(j-1)][vark+(k-1)] == "XX":  #SUPONGAMOS <O> SIMBOLO DE BARCO
+                    if listaJugador[varj+(j-1)][vark+(k-1)] == "X":  #SUPONGAMOS <O> SIMBOLO DE BARCO
                         return False
     return True
 
@@ -294,6 +290,7 @@ def comprobarGanador(listaJugadores, turno, maxBarcos):
         return True
     else:
         return False
+
 def programa():
     seguir = True
     while seguir:
@@ -301,7 +298,6 @@ def programa():
         entrada = str(input())
         if entrada == "1":
             juego()
-            
             seguir = False
         elif entrada == "2":
             instrucciones()
