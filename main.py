@@ -292,9 +292,9 @@ def contarTrozosBarco(barcos):
         trozos += int(barcos[i])
     return trozos
 
-def comprobarGanador(listaJugadores, turno):
+def comprobarGanador(listaJugadores, turno, maxBarcos):
     listaJugadores[turno]['aciertos'] += 1
-    if contarTrozosBarco(listaJugadores[turno]['barcos']) == listaJugadores[turno]['aciertos']:
+    if maxBarcos == listaJugadores[turno]['aciertos']:
         return True
     else:
         return False
