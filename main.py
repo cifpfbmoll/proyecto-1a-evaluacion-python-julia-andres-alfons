@@ -25,8 +25,7 @@ def guardarDisparos(lista): #Se pasa la lista de disparos i el disparo del jugad
     letraFinal = int(disparo[1:])
     letraFinal-=1
     revisarDisparo(lista, letraInicio,letraFinal)#Comprobar si el disparo no esta repetido y esta bien
-
-        
+  
     
 
 #Cambio de jugador
