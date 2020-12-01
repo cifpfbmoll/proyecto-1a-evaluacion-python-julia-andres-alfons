@@ -72,6 +72,7 @@ def juego():
         for barco in lista_barcos:
             seguir = True
             while seguir:
+                imprimirTableroBarcos(jugadores, turno_actual)
                 coordenadas_barco = input(f'Escribe donde quieres colocar tu barco de {barco} casillas. Indicando la casilla de inicio y la de fin. Por ejemplo para el barco de 4: A1 A4: ')
                 #  AQUI VAN lAS COMPROBACIONES Y ME DEVUELVEN UNA LISTA DE CASILLAS
                 listaPosBarco = []
@@ -235,6 +236,7 @@ def posBarco(trozo, tamano, listaPosBarco):
                             listaPosBarco.append(aux)
                     return True
                 else:
+                    print('Error. el barco no tiene el tamaño adecuado')
                     return False
             elif trozo[1] == trozo[3]:  #NUMEROS IGUALES, BARCO EN VERTICAL, CONTAMOS LETRAS
                 orientacion = int(equivalencias[trozo[0]]) - int(equivalencias[trozo[2]]) 
@@ -258,8 +260,10 @@ def posBarco(trozo, tamano, listaPosBarco):
                             listaPosBarco.append(str(aux) + str(comp))
                     return True
                 else:
+                    print('Error. el barco no tiene el tamaño adecuado')
                     return False
             else:
+                print('No se puede colocar en diagonal')
                 return False
         else:
             listaPosBarco.append(trozo)
@@ -279,6 +283,7 @@ def comprobarCasillas(listaJugador, listaPosBarco):
             for k in range(3):
                 if ((varj+(j-1)) >= 0 and (vark+(k-1)) >= 0) and ((varj+(j-1)) <= 9 and (vark+(k-1)) <= 9): #TENEMOS EN CUENTA QUE SI UNA DE LAS COORDENADAS TOCA UNA PARED NO MIRAREMOS FUERA DEL RANGO DE LA MATRIZ
                     if listaJugador[varj+(j-1)][vark+(k-1)] == "X":  #SUPONGAMOS <O> SIMBOLO DE BARCO
+                        print('Posición ocupada o muy cerca de otro barco')
                         return False
     return True
 
