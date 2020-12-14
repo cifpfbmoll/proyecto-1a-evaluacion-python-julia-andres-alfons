@@ -4,17 +4,20 @@ py -m pip install colorama
 
 JUEGO HUNDIR LA FLOTA
 
-Prevision del juego:                                                                            Horas previstas:
-- Crear instrucciones ................................................................................. 1
-- Printear tablero con los valores (barcos, disparos...) .............................................. 4
-- Hacer input de los barcos y controlar que se pongan bien en el tablero siguiendo las reglas ......... 6
-- Controlar disparos y posibles errores, incluyendo el de vovler a disparar al mismo sitio ............ 4
-- Hacer flujo de ejecucion del programa ............................................................... 4
-- Comprobar bugs de ejecucion y corregir .............................................................. 8
-- 
+Prevision del juego:                                                                            Horas previstas:        Horas Reales:       Realizador:
+- Organizacion y reuniones ............................................................................ 2 ................... 3 ........... Todos
+- Crear instrucciones ................................................................................. 1 ................... 1 ........... Alfons
+- Printear tablero con los valores (barcos, disparos...) .............................................. 4 ................... 5 ........... Julia
+- Hacer input de los barcos y controlar que se pongan bien en el tablero siguiendo las reglas ......... 6 ................... 5 ........... Andres
+- Controlar disparos y posibles errores, incluyendo el de vovler a disparar al mismo sitio ............ 4 ................... 4 ........... Alfons
+- Hacer flujo de ejecucion del programa ............................................................... 4 ................... 3 ........... Julia
+- Comprobar bugs de ejecucion y corregir .............................................................. 6 ................... 8 ........... Todos
+- Revisar faltas ortografia ........................................................................... 0.5 ................. 0.5 ......... Julia
 
 
 -----------------------------------------------------------------------------------------
+
+Primer Sprint: Llegar a tener una alfa del programa funcional y tener ciertas funciones preparadas:
 
 - 17 de Noviembre: crear función menu, tenemos que generar un diccionario de equivalencias números/letras, función
 comprobar dirección barco, longitud barco, comprobar casillas alrededor del barco (que están vacías), insertar barco, renderizar tablero,
@@ -36,6 +39,8 @@ imprimir tablero en general, por imprimir tableroBarcos e imprimirTablero dispar
 del barco porque daba error si se insertaba barco en la columna 10. Lo integramos en el programa principal.
 
 
+Segundo sprint: Terminar de implementar todo al programa principal y arreglar errores a deas de implementar la funcion del ganador:
+
 - 30 De noviembre: incluir la función de limpiar pantalla en el programa principal, decidimos que no se puede disparar
     dos veces en el mismo sitio, Alfons va a crear una función para comprobar si se ha disparado ya , luego se integrará en la función guardar 
     disparo, 
@@ -50,6 +55,10 @@ se decide ofrecer tres modos de juego (rápida, normal, larga)
 
 Cosas que arreglar:  Si disparo en "tr" el programa peta 
                     la función limpiar , limpia raro
+
+
+
+Tercer sprint: Terminar de arreglar algunos bugs i añadir color al juego: 
 
 -14-12 : Alfons arregla los bugs
         julia implementa colorama en las funciones
