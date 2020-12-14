@@ -1,4 +1,5 @@
 import os
+from colorama import Fore, Style
 #encoding: "UTF-16"
 
 #Revisar disparo
@@ -169,16 +170,20 @@ def imprimirTableroBarcos(jugadores, turno):
         for columna in range(len(jugadores[turno]['barcos'][fila])):
             ## Barcos que me han disparado
             if jugadores[turno]['barcos'][fila][columna] == 'X' and jugadores[rival]['disparos'][fila][columna] == 'D':
-                print('DD', end = " ")
+                print(Fore.RED + 'DD', end = " ")
+                print(Style.RESET_ALL, end = "")
             ## DISPAROS DEL RIVAL EN AGUA
             elif jugadores[turno]['barcos'][fila][columna] != 'X' and jugadores[rival]['disparos'][fila][columna] == 'D':
-                print('~~', end = " ")
+                print(Fore.CYAN +'~~', end = " ")
+                print(Style.RESET_ALL, end = "")
             # MIS BARCOS
             elif jugadores[turno]['barcos'][fila][columna] == 'X' and jugadores[rival]['disparos'][fila][columna] != 'D':
-                print('XX', end = " ")
+                print(Fore.GREEN +'XX', end = " ")
+                print(Style.RESET_ALL, end = "")
             # Zonas de agua sin disparos y sin barcos
             else: 
-                print('--', end = " ")
+                print(Fore.BLUE +'--', end = " ")
+                print(Style.RESET_ALL, end = "")
         print(end = "\n")
 
 def imprimirTableroDisparos(jugadores, turno):
@@ -194,13 +199,16 @@ def imprimirTableroDisparos(jugadores, turno):
         for columna in range(len(jugadores[turno]['disparos'][fila])):
             #  SI HE DADO A UN BARCO
             if jugadores[turno]['disparos'][fila][columna] == 'D' and jugadores[rival]['barcos'][fila][columna] == 'X':
-                print('TT', end = " ")
+                print(Fore.RED + 'TT', end = " ")
+                print(Style.RESET_ALL, end = "")
             #  Si he dado a agua
             elif jugadores[turno]['disparos'][fila][columna] == 'D' and jugadores[rival]['barcos'][fila][columna] != 'X':
-                print('AG', end = " ")
+                print(Fore.CYAN +'AG', end = " ")
+                print(Style.RESET_ALL, end = "")
             # Casillas que no se que hay
             else: 
-                print('--', end = " ")
+                print(Fore.BLUE + '--', end = " ")
+                print(Style.RESET_ALL, end = "")
         print(end = "\n")
 
 
