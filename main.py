@@ -25,13 +25,14 @@ def guardarDisparos(lista): #Se pasa la lista de disparos i el disparo del jugad
         try:
             letraInicio = int(equivalencias.get(disparo[0]))
             letraFinal = int(disparo[1:])
+            letraFinal-=1
             
         except:
             print("Error, de entrada del disparo, debes entrar un solo valor como A4 entre los valores disponibles (A-J i 1-10):")
         else:
             prueba = True
-            
-    letraFinal-=1
+
+
     revisarDisparo(lista, letraInicio,letraFinal)#Comprobar si el disparo no esta repetido y esta bien
      
 #Cambio de jugador
