@@ -8,33 +8,42 @@ def revisarDisparo(lista, letraInicio,letraFinal):
         if lista[letraInicio][letraFinal] != "D":#Si no se ha disparado en la casilla
             lista[letraInicio][letraFinal] = "D"#Cambiar la posicion de la lista por una D de disparo.
         else:
-            print("Ya has disparado en esta casilla, repite el disparo")
+            print("Ya has disparado en esta casilla, repite el disparo.")
             guardarDisparos(lista)#Volver a disparar
     except:#Si hay error
-        print("Error, el disparo esta fuera de rango, repitelo")
+        print("Error, el disparo está fuera de rango, repítelo")
         guardarDisparos(lista)#Volver a disparar
 
     else:#Si funciona bien
         return True
 
 #Guardar disparo
-def guardarDisparos(lista): #Se pasa la lista de disparos i el disparo del jugador
+
+def guardarDisparos(lista): #Se pasa la lista de disparos y el disparo del jugador
     prueba = bool
     while prueba != True:
-        disparo = input("Donde quieres disparar?> ")
+        disparo = input("¿Dónde quieres disparar?> ")
         disparo.upper()
         try:
             letraInicio = int(equivalencias.get(disparo[0]))
             letraFinal = int(disparo[1:])
             letraFinal-=1
+<<<<<<< HEAD
+=======
+            revisarDisparo(lista, letraInicio,letraFinal)#Comprobar si el disparo no esta repetido y esta bien
+>>>>>>> c5d569df57f7195120f64c4f3e783c552254c0b8
             
         except:
-            print("Error, de entrada del disparo, debes entrar un solo valor como A4 entre los valores disponibles (A-J i 1-10):")
+            print("Error de entrada del disparo. Debes entrar un sólo valor como A4 entre los valores disponibles (A-J y 1-10):")
         else:
             prueba = True
+<<<<<<< HEAD
 
 
     revisarDisparo(lista, letraInicio,letraFinal)#Comprobar si el disparo no esta repetido y esta bien
+=======
+            
+>>>>>>> c5d569df57f7195120f64c4f3e783c552254c0b8
      
 #Cambio de jugador
 def cambioJugador(turno):
@@ -58,7 +67,7 @@ def juego():
     print ("COMENZAR PARTIDA")
     jugador1 = input('Escribe tu nombre jugador 1: ')
     limpiarPantalla()
-    jugador2 = input('escribe tu nombre jugador 2: ')
+    jugador2 = input('Escribe tu nombre jugador 2: ')
     lista_barcos = (2,2)
     trozosBarco = contarTrozosBarco(lista_barcos)
 
@@ -80,11 +89,11 @@ def juego():
         print('Hola', jugador['nombre'])
         # creo el tablero del jugador
         # print(jugadores)
+        imprimirTableroBarcos(jugadores, turno_actual)
         for barco in lista_barcos:
             seguir = True
             while seguir:
-                imprimirTableroBarcos(jugadores, turno_actual)
-                coordenadas_barco = input(f'Escribe donde quieres colocar tu barco de {barco} casillas. Indicando la casilla de inicio y la de fin. Por ejemplo para el barco de 4: A1 A4: ')
+                coordenadas_barco = input(f'Escribe donde quieres colocar tu barco de {barco} casillas. Indica la casilla de inicio y la de fin. Por ejemplo para el barco de 4: A1 A4: ')
                 #  AQUI VAN lAS COMPROBACIONES Y ME DEVUELVEN UNA LISTA DE CASILLAS
                 listaPosBarco = []
                 if posBarco(trocear(coordenadas_barco), barco, listaPosBarco) and comprobarCasillas(jugador['barcos'], listaPosBarco):
@@ -102,14 +111,14 @@ def juego():
             
     turno_actual = False
     while ganador == False: #Esto es para qe no entre en bucle
-        print('hola', jugadores[turno_actual]['nombre'])
+        print('Hola', jugadores[turno_actual]['nombre'])
 
         ##MUestro tus barcos
-        print('estos Son tus barcos')
+        print('Estos son tus barcos: ')
         imprimirTableroBarcos(jugadores, turno_actual)
 
         ##Empezamos a disparar
-        print('estos Son tus disparons')
+        print('Estos son tus disparons ')
         imprimirTableroDisparos(jugadores, turno_actual)
         guardarDisparos(jugadores[turno_actual]['disparos'])
         imprimirTableroDisparos(jugadores, turno_actual)
@@ -123,16 +132,14 @@ def juego():
 #INSTRUCCIONES
 def instrucciones():
     #Explicar como funciona el juego
-    print("\n------Como se juega a este juego------\n")
-    print("El juego consiste en undir todos los barcos del contrincante.")
-    print("Para ello, debe colocar su propia flota estrategicamente, encontrar y undir la flota contraria.")
-    print("Cada jugador tiene su propio tablero y debera posicionar los barcos deseados en el tablero")
-    print("La colocacion de los barcos debe ser respetando la franja de las posiciones, es decir, nunca se puede colocar un barco al lado de otro, este debe estar almenos a mas de una posicion de cualquier otro barco del tablero.")
-    print("Para colocar cada barco se dira la posicion inicial y la final de este, por ejemplo, si es un barco de 3 casillas: B3 B5, asi este sera colocado en B3, B4 i B5. Si solo es el barco de una casilla solo se introducira una coordenada")
-    print("Para disparar a otro jugador se debera insertar una coordenada no repetida anteriormente y si se golpea a un barco sera 'tocado', si se falla sera 'agua', para que un barco se hunda debe golpearse en todas sus casillas.")
-    print("Para ganar se debe hundir todos los barcos del contrincante. Si se hunden todos tus barcos has perdido.\n")
-
-#instrucciones()
+    print("\n------Cómo se juega a este juego------\n")
+    print("El juego consiste en hundir todos los barcos del contrincante.")
+    print("Para ello, debes colocar tu propia flota estratégicamente, y encontrar y hundir la flota contraria.")
+    print("Cada jugador tiene su propio tablero y deberá posicionar los barcos deseados en el tablero")
+    print("La colocación de los barcos debe ser respetando la franja de las posiciones, es decir, nunca se puede colocar un barco al lado de otro, este debe estar al menos a más de una posición de cualquier otro barco del tablero.")
+    print("Para colocar cada barco se dirá la posición inicial y la final de éste. Por ejemplo, si es un barco de 3 casillas: B3 B5, asi éste será colocado en B3, B4 y B5. Si sólo es el barco de una casilla solo se introducirá una coordenada.")
+    print("Para disparar a otro jugador se deberá insertar una coordenada no repetida anteriormente y si se golpea a un barco será 'tocado', si se falla será 'agua'. Para que un barco se hunda debe golpearse en todas sus casillas.")
+    print("Para ganar se debe hundir todos los barcos del contrincante. Si te hunden todos tus barcos has perdido.\n")
 
 equivalencias = {
     'A': '0',
@@ -250,7 +257,7 @@ def posBarco(trozo, tamano, listaPosBarco):
                             listaPosBarco.append(aux)
                     return True
                 else:
-                    print('Error. el barco no tiene el tamaño adecuado')
+                    print('Error. El barco no tiene el tamaño adecuado')
                     return False
             elif trozo[1] == trozo[3]:  #NUMEROS IGUALES, BARCO EN VERTICAL, CONTAMOS LETRAS
                 orientacion = int(equivalencias[trozo[0]]) - int(equivalencias[trozo[2]]) 
@@ -274,7 +281,7 @@ def posBarco(trozo, tamano, listaPosBarco):
                             listaPosBarco.append(str(aux) + str(comp))
                     return True
                 else:
-                    print('Error. el barco no tiene el tamaño adecuado')
+                    print('Error. El barco no tiene el tamaño adecuado')
                     return False
             else:
                 print('No se puede colocar en diagonal')
@@ -328,6 +335,6 @@ def programa():
             print ("Adiós")
             seguir = False
         else:
-            print ("Vuelve a Introducir")
+            print ("Vuelve a introducir")
 
 programa()
