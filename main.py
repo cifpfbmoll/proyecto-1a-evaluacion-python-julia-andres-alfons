@@ -19,10 +19,19 @@ def revisarDisparo(lista, letraInicio,letraFinal):
 
 #Guardar disparo
 def guardarDisparos(lista): #Se pasa la lista de disparos i el disparo del jugador
-    disparo = input("Donde quieres disparar?> ")
-    disparo.upper()
-    letraInicio = int(equivalencias.get(disparo[0]))
-    letraFinal = int(disparo[1:])
+    prueba = bool
+    while prueba != True:
+        disparo = input("Donde quieres disparar?> ")
+        disparo.upper()
+        try:
+            letraInicio = int(equivalencias.get(disparo[0]))
+            letraFinal = int(disparo[1:])
+            
+        except:
+            print("Error, de entrada del disparo, debes entrar un solo valor como A4 entre los valores disponibles (A-J i 1-10):")
+        else:
+            prueba = True
+            
     letraFinal-=1
     revisarDisparo(lista, letraInicio,letraFinal)#Comprobar si el disparo no esta repetido y esta bien
      
