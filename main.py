@@ -117,6 +117,7 @@ def juego():
         turno_actual = cambioJugador(turno_actual)
         limpiarPantalla()
 
+    turno_actual = cambioJugador(turno_actual)
     print(f"Ha ganado {jugadores[turno_actual]['nombre']}") 
 
 
