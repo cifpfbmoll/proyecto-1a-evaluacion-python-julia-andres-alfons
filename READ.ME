@@ -1,10 +1,10 @@
 Intalaciones de de librerias
-installar colorama
+instalar colorama
 py -m pip install colorama
 
 JUEGO HUNDIR LA FLOTA
 
-Prevision del juego:                                                                            Horas previstas:        Horas Reales:       Realizador:
+Prevision general:                                                                            Horas previstas:        Horas Reales:       Realizador:
 - Organizacion y reuniones ............................................................................ 2 ................... 3 ........... Todos
 - Crear instrucciones ................................................................................. 1 ................... 1 ........... Alfons
 - Printear tablero con los valores (barcos, disparos...) .............................................. 4 ................... 5 ........... Julia
@@ -19,15 +19,75 @@ Prevision del juego:                                                            
 
 Primer Sprint: Llegar a tener una alfa del programa funcional y tener ciertas funciones preparadas:
 
+USER STORIES
+User Story: Crear un menú   
+Tarea/Previsto/real/realizador: Crear función menú/ 0.3/0.2/Andrés
+Tarea/Previsto/real/realizador: Crear instruccioes/0.5/1/Alfons
+
+User Story: Inicializar la partida
+Tarea/Previsto/real/realizador: pensar y crear estructura de datos/1/2/Julia
+
+User Story: Colocar los barcos
+Tarea/Previsto/real/realizador: generar diccionario de equivalencias numeros y letras/0.1/0.1/Julia
+Tarea/Previsto/real/realizador: función comprobar dirección barco/1/4/Andrés
+Tarea/Previsto/real/realizador: función longitud barco/1/2/Andrés
+Tarea/Previsto/real/realizador: casillas alrededor del barco/1.5/2/Andrés
+Tarea/Previsto/real/realizador: insertar barco en el array de barcos/0.5/0.5/Julia
+Tarea/Previsto/real/realizador: renderizar tablero que se vean los barcos del usuaria/2/3/Julia
+Tarea/Previsto/real/realizador: integrar las funciones en el menú principal/1/2/Julia
+Tarea/Previsto/real/realizador: actualización del readme/0.5/0.5/Alfons
+
+User Story: disparar
+Tarea/Previsto/real/realizador: función guardar disparo/0.5/1/Alfons
+Tarea/Previsto/real/realizador: refactor de las funciones de comprobar la posición del barco/0.5/0.5/Andrés
+Tarea/Previsto/real/realizador: hardcodeo de los turnos en el programa principal/0.2/0.2/Julia
+
+Tarea/Previsto/real/realizador: limpieza de código/0.5/0.5/Julia
+Tarea/Previsto/real/realizador: integrar las funciones en el menú principal/1/1.5/Julia
+
+User Story: evitar que el jugador vea la pantalla del contrincante
+Tarea/Previsto/real/realizador: creación de función limpiar pantalla/0.5/0.5/Alfons
+Tarea/Previsto/real/realizador: integrar las funciones en el menú principal/0.2/0.5/Julia
+
+User Story: arreglar bugs e incorporar mejoras
+Tarea/Previsto/real/realizador: arreglar función guardar disparos , mejorar con try except/1/1/Alfons
+Tarea/Previsto/real/realizador: crear funcion cambio de turnos e integrar con el menu principal 1/1/Julia
+Tarea/Previsto/real/realizador: dividir la función de imprimir tablero en dos- imprimir disparos e imprimir barcos e integrar con el menu principal/2/3/Julia
+
+Segundo sprint: Terminar de implementar todo al programa principal y arreglar errores a deas de implementar la funcion del ganador:
+
+USER STORIES
+User Story: implementar el no poder disparar dos veces en el mismo sitio
+Tarea/Previsto/real/realizador: arreglar la función de comprobar disparo para comprobar que no se dispara en el mismo sitio/0.5/0.7/Alfons
+
+User Story: encontrar ganador y terminar programa cuando haya ganador
+Tarea/Previsto/real/realizador: crear función contar trozos de barcos/0.5/1/Andrés
+Tarea/Previsto/real/realizador: crear función encontrar ganador/0.5/1/Andrés
+Tarea/Previsto/real/realizador: integrar en la función juego/0.5/0.7/Julia
+
+
+Tercer sprint: Terminar de arreglar algunos bugs y añadir color al juego: 
+
+User STORIES
+User Story: arreglar bugs
+Tarea/Previsto/real/realizador: arreglar función comprobar disparo (peta si pones dos letras, enter, más de dos caracteres, etc)/1/1/Alfons
+
+User Story: añadir color a la visualización de los tableros
+Tarea/Previsto/real/realizador: investigar librerías de color y poner color según el disparo sea en agua, sea en barco, se vea un barco, o se vea agua/1/1/Julia
+Tarea/Previsto/real/realizador: actualización del readme con las instrucciones de instalación de la librería/0.5/0.5/Julia
+
+User Story: presentación del producto
+Tarea/Previsto/real/realizador: elaboración del power point/ 7/8/ Todos
+
+-------------------------------------------------------------------------------------------------------------------------------
+DIARIO
 - 17 de Noviembre: crear función menu, tenemos que generar un diccionario de equivalencias números/letras, función
 comprobar dirección barco, longitud barco, comprobar casillas alrededor del barco (que están vacías), insertar barco, renderizar tablero,
-iniciamos el programa principal.
-
+iniciamos el programa principal. Scrum master: Julia
 
 - 23 Noviembre: Integamos las nuevas funciones en el programa principal, funcion de guardar el disparo, arreglo de las funciones
 de comprobar si la posición del barco es legal, creamos sistema de turnos hardcodeado en el programa principal, creación del readme
-y limpieza de código.
-
+y limpieza de código. Scrum master: Alfons
 
 - 25 noviembre: Se han arreglado errores de la funcion de "guardarDisparos" y se han implementado mejoras con el try-except, 
 en el cual no se guardaban bien en la lista los disparos,
@@ -36,10 +96,7 @@ que tiene la funcion de limpiar la pantalla tanto si es en MAC, linux o Windows 
  "cambioJugador" la qual tiene la funcion de cambiar el
 turno del jugador, limpiando la pantalla para que el jugador nuevo no pueda ver el anterior, se ha cambiado la función de 
 imprimir tablero en general, por imprimir tableroBarcos e imprimirTablero disparos, se arregla la función de comprobar la posición 
-del barco porque daba error si se insertaba barco en la columna 10. Lo integramos en el programa principal.
-
-
-Segundo sprint: Terminar de implementar todo al programa principal y arreglar errores a deas de implementar la funcion del ganador:
+del barco porque daba error si se insertaba barco en la columna 10. Lo integramos en el programa principal. Scrum master: Andrés
 
 - 30 De noviembre: incluir la función de limpiar pantalla en el programa principal, decidimos que no se puede disparar
     dos veces en el mismo sitio, Alfons va a crear una función para comprobar si se ha disparado ya , luego se integrará en la función guardar 
@@ -48,20 +105,15 @@ Segundo sprint: Terminar de implementar todo al programa principal y arreglar er
     crear función de comprobar ganador (se acumularán los hits si la función de hitear barco devuelve true, Devolverá ganador
     si llega al límite de las casillas con barco totales), 
     crear función contar casillas/trozo de barcos.
-    separamos la opción de juego de la opción del menu 
+    separamos la opción de juego de la opción del menu  
+    Scrum máster: Julia
 
 - 1 diciembre. Acabar la funcion de buscar Ganador, además hay un fallo en la función de validar la posicion (no coloca en la columna ultima ni en la ultima fila), se añade try/except a la función colocar barco, se integra en el programa principal,
-se decide ofrecer tres modos de juego (rápida, normal, larga)
+se decide ofrecer tres modos de juego (rápida, normal, larga) Scrum master: Alfons
 
-Cosas que arreglar:  Si disparo en "tr" el programa peta 
-                    la función limpiar , limpia raro
-
-
-
-Tercer sprint: Terminar de arreglar algunos bugs i añadir color al juego: 
-
--14-12 : Alfons arregla los bugs
+-14 diciembre : Alfons arregla los bugs
         julia implementa colorama en las funciones
         Andres empieza la presentación de diapositivas
+        Scrum master: Andrés
 
--15    : Terminada presentación de diapositivas
+-15 diciembre   : Terminar presentación de diapositivas entre todos. Scrum master: Julia
