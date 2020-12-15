@@ -121,7 +121,7 @@ def juego():
 
 
 #INSTRUCCIONES
-def instrucciones():
+def mostrarInstrucciones():
     #Explicar como funciona el juego
     print("\n------Cómo se juega a este juego------\n")
     print("El juego consiste en hundir todos los barcos del contrincante.")
@@ -321,7 +321,7 @@ def programa():
             juego()
             seguir = False
         elif entrada == "2":
-            instrucciones()
+            mostrarInstrucciones()
         elif entrada == "3":
             print ("Adiós")
             seguir = False
