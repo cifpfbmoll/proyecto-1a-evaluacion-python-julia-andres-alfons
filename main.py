@@ -100,7 +100,7 @@ def juego():
                
     ganador = False
             
-    turno_actual = False
+    turno_actual = 0
     while ganador == False: #Esto es para qe no entre en bucle
         print('Hola', jugadores[turno_actual]['nombre'])
 
