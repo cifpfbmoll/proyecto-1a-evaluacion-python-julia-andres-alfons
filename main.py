@@ -19,11 +19,11 @@ def revisarDisparo(lista, letraInicio,letraFinal):
 
 #Guardar disparo
 
-def guardarDisparos(lista): #Se pasa la lista de disparos y el disparo del jugador
+def guardarDisparos(lista): #Se pasa la lista de disparos
     prueba = bool
     while prueba != True:
         disparo = input("¿Dónde quieres disparar?> ")
-        disparo.upper()
+        disparo = disparo.upper()
         try:
             letraInicio = int(equivalencias.get(disparo[0]))
             letraFinal = int(disparo[1:])
