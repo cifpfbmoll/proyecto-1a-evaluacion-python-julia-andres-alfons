@@ -146,10 +146,6 @@ equivalencias = {
     'J': '9'
 }
 
-def calcularTurnoRival(turno_actual):
-    if turno_actual == 0:
-        return 1
-    else: return 0    
 
 def colocarBarco(lista_barcos, casilla):
     letra_inicio, numero_inicio = casilla[0], int(casilla[1:])
@@ -161,7 +157,7 @@ def imprimirTableroBarcos(jugadores, turno):
     print('     1  2  3  4  5  6  7  8  9 10')
     print('---------------------------------')
 
-    rival = calcularTurnoRival(turno)
+    rival = cambioJugador(turno)
 
     # Imprimo mi tablero de barcos con los disparos del rival
     for fila in range(len(jugadores[turno]['barcos'])):
@@ -190,7 +186,7 @@ def imprimirTableroDisparos(jugadores, turno):
     print('     1  2  3  4  5  6  7  8  9 10')
     print('---------------------------------')
 
-    rival = calcularTurnoRival(turno)
+    rival = cambioJugador(turno)
     
     # Imprimo el tablero de mis disparos
     for fila in range(len(jugadores[turno]['disparos'])):
