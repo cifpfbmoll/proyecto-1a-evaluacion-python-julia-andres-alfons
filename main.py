@@ -283,7 +283,6 @@ def posBarco(trozo, tamano, listaPosBarco):
 
     #USAMOS listaBarco DONDE SE HA ALMACENADO TODAS LAS COORDENADAS QUE OCUPARÁ EL BARCO Y VAMOS MIRANDO UNA POR UNA SI ALREDEDOR O EN ESA MISMA COORDENADA
     #SI ESTÁ OCUPADA, SI LO ESTA LA FUNCION DEVUELVE FALSO, SI NO ENCUENTRA NADA DEVUELVE VERDADERO
-
 def comprobarCasillas(listaJugador, listaPosBarco):
     for i in range(len(listaPosBarco)):
         varj = int(equivalencias[listaPosBarco[i][0]])
@@ -303,8 +302,13 @@ def contarTrozosBarco(barcos):
     return trozos
 
 def comprobarGanador(listaJugadores, turno, maxBarcos):
-    listaJugadores[turno]['aciertos'] += 1
-    if maxBarcos == listaJugadores[turno]['aciertos']:
+    counter = 0
+    rival = cambioJugador(turno)
+    for fila in range(len(listaJugadores[turno]['disparos'])):
+        for columna in range(len(listaJugadores[turno]['disparos'][fila])):
+            if listaJugadores[turno]['disparos'][fila][columna] == 'D' and listaJugadores[rival]['barcos'][fila][columna] == 'X':
+                counter+=1
+    if maxBarcos == counter:
         return True
     else:
         return False
