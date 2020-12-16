@@ -65,12 +65,10 @@ def juego():
     # inicializo una lista de 2 diccionarios con la info de cada jugador
     jugadores = [{'nombre': jugador1,
                 'barcos':[[j for j in range(0,10)] for i in range(0,10)],
-                'disparos':[[j for j in range(0,10)] for i in range(0,10)],
-                'aciertos': 0},
+                'disparos':[[j for j in range(0,10)] for i in range(0,10)]},
                 {'nombre': jugador2,
                 'barcos':[[j for j in range(0,10)] for i in range(0,10)],
-                'disparos':[[j for j in range(0,10)] for i in range(0,10)],
-                'aciertos': 0}]
+                'disparos':[[j for j in range(0,10)] for i in range(0,10)]}]
 
 
     # Le pregunto a cada  jugador donde quiere colocar los barcos
